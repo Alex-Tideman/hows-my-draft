@@ -3,25 +3,20 @@
 </script>
 
 <script lang="ts">
-	import Scroller from '$lib/Scroller.svelte';
+	import IndexCard from '$lib/IndexCard.svelte';
 </script>
 
 <svelte:head>
 	<title>Home</title>
 </svelte:head>
 
-<section>
-	<Scroller />
-</section>
+<IndexCard />
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-		height: 100vh;
+	:global(body) {
+		margin: 0;
+		padding: 0;
+		background-color: rgb(253, 174, 51);
 		overflow: hidden;
 	}
 </style>
