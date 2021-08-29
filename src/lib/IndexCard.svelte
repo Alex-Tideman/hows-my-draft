@@ -3,7 +3,7 @@
   let y = 0;
 
   const cardHeight = 3200;
-  const cards = [5,4,3,2,1];
+  const cards = [...Array(100).keys()].reverse();
   const totalHeight = cards.length * cardHeight;
   function parseScroll() {
     y = container.scrollTop
@@ -23,6 +23,8 @@
       return `transform: rotateX(${-(y % cardHeight) / 20}deg); z-index: 2;`
     } else if (flippedCard) {
       return `transform: rotateX(160deg); z-index: 1;`
+    } else if (nextCard) {
+      return 'will-change: transform;';
     }
   }
 </script>
@@ -72,7 +74,6 @@
     border: 1px solid black;
     border-radius: 4px;
     background-color: white;
-		will-change: transform;
     transform-origin: left bottom;
 	}
 
