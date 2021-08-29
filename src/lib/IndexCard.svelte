@@ -2,19 +2,28 @@
 	let container;
   let y = 0;
 
-  const cardHeight = 4000;
+  const cardHeight = 3200;
   const cards = [5,4,3,2,1];
   const totalHeight = cards.length * cardHeight;
   function parseScroll() {
     y = container.scrollTop
   }
 
-  function cardInFront(card, cardHeight, y) {
-    if (((cardHeight * (card-1)) <= y) && (y < (card * cardHeight))) {
-      console.log("CARD: ", card, y)
-      return true
+  function getCardPosition(card, y) {
+    const frontCard = ((cardHeight * (card-1)) <= y) && (y < (card * cardHeight));
+    const nextCard = ((cardHeight * (card)) <= y) && (y < ((card + 1) * cardHeight));
+    const flippedCard = y > (card * cardHeight);
+    return { frontCard, nextCard, flippedCard };
+  }
+
+  function cardStyle(card, y) {
+    const { frontCard, nextCard, flippedCard } = getCardPosition(card, y);
+    if (frontCard) {
+      const deg = -(y % cardHeight) / 20;
+      return `transform: rotateX(${-(y % cardHeight) / 20}deg); z-index: 2;`
+    } else if (flippedCard) {
+      return `transform: rotateX(160deg); z-index: 1;`
     }
-    return false;
   }
 </script>
 
@@ -32,7 +41,7 @@
     {#each cards as card}
       <div 
         class="card" 
-        style="transform: rotateX({(cardInFront(card, cardHeight, y)) ? `${-(y % cardHeight) / 20}deg` : ''});">
+        style={cardStyle(card, y)}>
         Index Card {card}
       </div>
     {/each}
@@ -65,7 +74,6 @@
     background-color: white;
 		will-change: transform;
     transform-origin: left bottom;
-    z-index: 1;
 	}
 
 	.text {
