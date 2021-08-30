@@ -3,8 +3,8 @@
   let y = 0;
 
   const cardHeight = 3200;
-  const cards = [...Array(100).keys()].reverse();
-  const totalHeight = cards.length * cardHeight;
+  const cards = [...Array(20).keys()].reverse().map(n => n + 1);
+  const totalHeight = cards.length * cardHeight + 800;
   function parseScroll() {
     y = container.scrollTop
   }
@@ -40,14 +40,23 @@
 
 <div class="parallax-container" bind:this={container} on:scroll={parseScroll}>
   <div class="card-container" style="height: {totalHeight}px">
-    {#each cards as card}
+    {#each cards as card, i}
       <div 
         class="card" 
         style={cardStyle(card, y)}>
-        Index Card {card}
+        <div class="tab" style={i % 2 === 0 ? "right: -2px;" : "left: 0;"}>
+          {card} - Card
+        </div>
+        <div class="body" style={i % 2 === 0 ? "border-top-left-radius: 5px;" : "border-top-right-radius: 5px;"}>
+          <div class="tab-mask" style={i % 2 === 0 ? "right: 0;" : "left: 0;"} />
+          <div class="content">
+            Content of card goes here...<br />
+            More stuff  
+          </div>
+        </div>
       </div>
     {/each}
-    
+    <div class="rod" />
   </div>
 </div>
 
@@ -65,17 +74,62 @@
 		height: 4000px;
   }
 
+  .rod {
+		position: fixed;
+		top: calc(20% + 256px);
+		left: 32%;
+    right: 31%;
+    height: 20px;
+    border-radius: 5px;
+    background-color: black;
+    z-index: 5;
+	}
+
 	.card {
 		position: fixed;
 		top: 20%;
 		left: 33%;
-		width: 400px;
+    width: 450px;
     height: 260px;
-    border: 1px solid black;
-    border-radius: 4px;
-    background-color: white;
     transform-origin: left bottom;
 	}
+
+  .tab {
+    position: absolute;
+    top: 0;
+    width: 170px;
+    height: 40px;
+    padding: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background-color: white;
+    border: 1px solid black;
+    border-bottom: 1px solid white;
+  }
+
+  .tab-mask {
+    position: absolute;
+    top:-1px;
+    width: 180px;
+    height: 1px;
+    background-color:#fff;
+}
+
+  .body {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: white;
+    border: .5px solid black;
+  }
+
+  .content {
+    padding: 5px;
+  }
 
 	.text {
 		position: relative;
@@ -92,7 +146,6 @@
 		display: block;
 		font-size: 1em;
 		text-transform: uppercase;
-		will-change: transform, opacity;
 	}
 
 	.foreground {
