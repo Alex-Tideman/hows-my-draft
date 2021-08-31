@@ -1,19 +1,20 @@
 <script>
   import { yScroll } from '../stores/store';
   export let index = 0;
+  export let itemIndexStart = 0;
   export let item;
   export let itemHeight;
 
-  function getCardPosition(y) {
-    const previous = y > ((index + 1) * itemHeight);
-    const current = ((itemHeight * (index)) <= y) && (y < ((index + 1) * itemHeight));
-    const next = ((itemHeight * (index - 1)) <= y) && (y < (index * itemHeight));
-    const after = ((itemHeight * (index - 2)) <= y) && (y < ((index - 1) * itemHeight));
-    return { previous, current, next, after, };
+  function getCardPosition(index) {
+    const previous = itemIndexStart === 0 ? null : index === 0;
+    const current = itemIndexStart === 0 ? index === 0 : index === 1;
+    const next = itemIndexStart === 0 ? index === 1 : index === 2;
+    const after = itemIndexStart === 0 ? index === 2 : index === 3;
+    return { previous, current, next, after };
   }
 
-  function cardStyle(y) {
-    const { previous, current, next, after } = getCardPosition(y);
+  function cardStyle(y, index) {
+    const { previous, current, next, after } = getCardPosition(index);
     if (current) {
       const deg = -(y % itemHeight) / 4;
       return `transform: rotateX(${deg}deg); z-index: 4;`
@@ -29,7 +30,7 @@
 
 <div 
   class="card" 
-  style={cardStyle($yScroll)}>
+  style={cardStyle($yScroll, index)}>
   <div class="tab" style={index % 2 === 0 ? "right: -2px;" : "left: 0;"}>
     {item.name}
   </div>

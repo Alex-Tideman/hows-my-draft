@@ -9,7 +9,6 @@ import { tick } from 'svelte';
   $: itemSet = items.getCurrentSet(itemIndexStart);
 
   const itemHeight = 720;
-  // const cards = [...Array(20).keys()].reverse().map(n => n + 1);
   const totalHeight = $items.length * itemHeight + 720;
 
   async function parseScroll(y) {
@@ -42,7 +41,7 @@ import { tick } from 'svelte';
 <div class="fixed-container" bind:this={container} on:scroll={() => parseScroll($yScroll)}>
   <div class="card-container" style="height: {totalHeight}px">
     {#each itemSet as item, index}
-      <IndexCard {item} {index} {itemHeight} />
+      <IndexCard {item} {index} {itemHeight} {itemIndexStart} />
     {/each}
     <div class="rod" />
   </div>
