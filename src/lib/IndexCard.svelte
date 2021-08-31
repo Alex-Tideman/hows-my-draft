@@ -1,9 +1,13 @@
 <script>
   import { yScroll } from '../stores/store';
+  import { itemHeight, scrollItemHeight, endDeg, degMultiplier } from './settings';
+
   export let index = 0;
   export let itemIndexStart = 0;
+  export let fullIndex;
   export let item;
-  export let itemHeight;
+
+  $: deg =  ($yScroll % scrollItemHeight) / degMultiplier;
 
   function getCardPosition(index) {
     const previous = itemIndexStart === 0 ? null : index === 0;
@@ -15,27 +19,28 @@
 
   function cardStyle(y, index) {
     const { previous, current, next, after } = getCardPosition(index);
+    const defaultStyles = `height: ${itemHeight}px; border-bottom: 10px solid black; border-radius: 5px;`
     if (current) {
-      const deg = -(y % itemHeight) / 4;
-      return `transform: rotateX(${deg}deg); z-index: 4;`
+      return defaultStyles + ` transform: rotateX(-${deg}deg); z-index: 4;`
     } else if (previous) {
-      return `transform: rotateX(160deg); z-index: 1;`
+      return defaultStyles + ` transform: rotateX(${endDeg}deg); z-index: 1;`
     } else if (next) {
-      return 'will-change: transform; z-index: 3';
+      return defaultStyles + ` will-change: transform; z-index: 3`;
     } else if (after) {
-      return 'will-change: transform; z-index: 2';
+      return defaultStyles + ` will-change: transform; z-index: 2`;
     }
+    return defaultStyles
   }
 </script>
 
 <div 
   class="card" 
   style={cardStyle($yScroll, index)}>
-  <div class="tab" style={index % 2 === 0 ? "right: -2px;" : "left: 0;"}>
+  <div class="tab" style={fullIndex % 2 === 0 ? "right: -2px;" : "left: 0;"}>
     {item.name}
   </div>
-  <div class="body" style={index % 2 === 0 ? "border-top-left-radius: 5px;" : "border-top-right-radius: 5px;"}>
-    <div class="tab-mask" style={index % 2 === 0 ? "right: 0;" : "left: 0;"} />
+  <div class="body" style={fullIndex % 2 === 0 ? "border-top-left-radius: 5px;" : "border-top-right-radius: 5px;"}>
+    <div class="tab-mask" style={fullIndex % 2 === 0 ? "right: 0;" : "left: 0;"} />
     <div class="content">
       {item.team}<br />
       {item.position}  
@@ -49,7 +54,6 @@
 		top: 20%;
 		left: 33%;
     width: 450px;
-    height: 260px;
     transform-origin: left bottom;
 	}
 

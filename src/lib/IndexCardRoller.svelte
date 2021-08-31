@@ -1,29 +1,28 @@
 <script>
-import { tick } from 'svelte';
-
+  import { tick } from 'svelte';
   import { yScroll, items } from '../stores/store';
-  import IndexCard from "./IndexCard.svelte";
+  import IndexCard from './IndexCard.svelte';
+  import { scrollItemHeight } from './settings';
 
   let container;
   let itemIndexStart = 0;
   $: itemSet = items.getCurrentSet(itemIndexStart);
 
-  const itemHeight = 720;
-  const totalHeight = $items.length * itemHeight + 720;
+  const totalHeight = ($items.length * scrollItemHeight) + scrollItemHeight;
 
   async function parseScroll(y) {
     if (container.scrollTop >= y|| container.scrollTop <= y || container.scrollTop === 0) {
       yScroll.set(container.scrollTop)
     }
 
-    if ($yScroll > ((itemIndexStart + 1)  * itemHeight)) {
+    if ($yScroll > ((itemIndexStart + 1)  * scrollItemHeight)) {
         itemSet = items.getCurrentSet(itemIndexStart + 1);
         itemIndexStart += 1;
         await tick();
-    } else if ($yScroll < ((itemIndexStart - 1)  * itemHeight)) {
+    } else if ($yScroll < ((itemIndexStart - 1)  * scrollItemHeight + scrollItemHeight)) {
+        await tick();
         itemSet = items.getCurrentSet(itemIndexStart - 1);
         itemIndexStart -= 1;
-        await tick();
     }
   }
 
@@ -33,17 +32,13 @@ import { tick } from 'svelte';
 	<span style="opacity: {1 - Math.max(0, $yScroll)}">
 		scroll down
 	</span>
-	<div class="foreground">
-		You have scrolled {$yScroll} pixels
-	</div>
 </div>
 
 <div class="fixed-container" bind:this={container} on:scroll={() => parseScroll($yScroll)}>
   <div class="card-container" style="height: {totalHeight}px">
     {#each itemSet as item, index}
-      <IndexCard {item} {index} {itemHeight} {itemIndexStart} />
+      <IndexCard {item} {index} {itemIndexStart} fullIndex={$items.indexOf(item)} />
     {/each}
-    <div class="rod" />
   </div>
 </div>
 
@@ -60,17 +55,6 @@ import { tick } from 'svelte';
 		width: 100%;
   }
 
-  .rod {
-		position: fixed;
-		top: calc(20% + 256px);
-		left: 32%;
-    right: 31%;
-    height: 20px;
-    border-radius: 5px;
-    background-color: black;
-    z-index: 5;
-	}
-
 	.text {
 		position: relative;
 		width: 100%;
@@ -86,12 +70,5 @@ import { tick } from 'svelte';
 		display: block;
 		font-size: 1em;
 		text-transform: uppercase;
-	}
-
-	.foreground {
-		position: sticky;
-		top: 100px;
-		text-align: center;
-		color: black;
 	}
 </style>
