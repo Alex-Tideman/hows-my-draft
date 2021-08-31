@@ -3,14 +3,14 @@
 </script>
 
 <script lang="ts">
-	import IndexCard from '$lib/IndexCard.svelte';
+	import IndexCardRoller from '$lib/IndexCardRoller.svelte';
 </script>
 
 <svelte:head>
 	<title>Home</title>
 </svelte:head>
 
-<IndexCard />
+<IndexCardRoller />
 
 <style>
 	:global(body) {
