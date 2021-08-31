@@ -4,13 +4,21 @@
 
   let container;
 
-  const cardHeight = 3200;
-  const cards = [...Array(20).keys()].reverse().map(n => n + 1);
-  const totalHeight = cards.length * cardHeight + 800;
-  const parseScroll = () => $yScroll = container.scrollTop;
-    //   if (container.scrollTop >= ($yScroll + 5) || container.scrollTop <= ($yScroll - 5) || container.scrollTop === 0) {
-    //     $yScroll = container.scrollTop;
-    // }
+  const itemHeight = 3200;
+  const items = [
+    { name: "Aaron Rodgers 1", team: "Green Bay Packers", position: "QB" },
+    { name: "Aaron Rodgers 2", team: "Green Bay Packers", position: "QB" },
+    { name: "Aaron Rodgers 3", team: "Green Bay Packers", position: "QB" },
+    { name: "Aaron Rodgers 4", team: "Green Bay Packers", position: "QB" },
+    { name: "Aaron Rodgers 5", team: "Green Bay Packers", position: "QB" },
+  ];
+  // const cards = [...Array(20).keys()].reverse().map(n => n + 1);
+  const totalHeight = items.length * itemHeight + 800;
+  function parseScroll(y) {
+      if (container.scrollTop >= (y + 150) || container.scrollTop <= (y - 150) || container.scrollTop === 0) {
+        yScroll.set(container.scrollTop)
+      }
+  }
 </script>
 
 <div class="text">
@@ -22,10 +30,10 @@
 	</div>
 </div>
 
-<div class="fixed-container" bind:this={container} on:scroll={parseScroll}>
+<div class="fixed-container" bind:this={container} on:scroll={() => parseScroll($yScroll)}>
   <div class="card-container" style="height: {totalHeight}px">
-    {#each cards as card, index}
-      <IndexCard {card} {index} {cardHeight} />
+    {#each items as item, index}
+      <IndexCard {item} {index} {itemHeight} />
     {/each}
     <div class="rod" />
   </div>
