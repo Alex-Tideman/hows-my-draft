@@ -1,27 +1,27 @@
 <script>
   import { yScroll } from '../stores/store';
-
   export let index = 0;
   export let item;
   export let itemHeight;
 
-  let itemNumber = index + 1;
-
   function getCardPosition(y) {
-    const frontCard = ((itemHeight * (index)) <= y) && (y < ((index + 1) * itemHeight));
-    const nextCard = ((itemHeight * (index + 1)) <= y) && (y < ((index + 2) * itemHeight));
-    const flippedCard = y > ((index + 1) * itemHeight);
-    return { frontCard, nextCard, flippedCard };
+    const previous = y > ((index + 1) * itemHeight);
+    const current = ((itemHeight * (index)) <= y) && (y < ((index + 1) * itemHeight));
+    const next = ((itemHeight * (index - 1)) <= y) && (y < (index * itemHeight));
+    const after = ((itemHeight * (index - 2)) <= y) && (y < ((index - 1) * itemHeight));
+    return { previous, current, next, after, };
   }
 
   function cardStyle(y) {
-    const { frontCard, nextCard, flippedCard } = getCardPosition(y);
-    if (frontCard) {
-      const deg = -(y % itemHeight) / 20;
-      return `transform: rotateX(${deg}deg); z-index: 3;`
-    } else if (flippedCard) {
+    const { previous, current, next, after } = getCardPosition(y);
+    if (current) {
+      const deg = -(y % itemHeight) / 4;
+      return `transform: rotateX(${deg}deg); z-index: 4;`
+    } else if (previous) {
       return `transform: rotateX(160deg); z-index: 1;`
-    } else if (nextCard) {
+    } else if (next) {
+      return 'will-change: transform; z-index: 3';
+    } else if (after) {
       return 'will-change: transform; z-index: 2';
     }
   }

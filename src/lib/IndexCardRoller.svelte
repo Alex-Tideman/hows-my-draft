@@ -1,28 +1,37 @@
 <script>
-  import { yScroll } from '../stores/store';
+import { tick } from 'svelte';
+
+  import { yScroll, items } from '../stores/store';
   import IndexCard from "./IndexCard.svelte";
 
   let container;
+  let itemIndexStart = 0;
+  $: itemSet = items.getCurrentSet(itemIndexStart);
 
-  const itemHeight = 3200;
-  const items = [
-    { name: "Aaron Rodgers 1", team: "Green Bay Packers", position: "QB" },
-    { name: "Aaron Rodgers 2", team: "Green Bay Packers", position: "QB" },
-    { name: "Aaron Rodgers 3", team: "Green Bay Packers", position: "QB" },
-    { name: "Aaron Rodgers 4", team: "Green Bay Packers", position: "QB" },
-    { name: "Aaron Rodgers 5", team: "Green Bay Packers", position: "QB" },
-  ];
+  const itemHeight = 720;
   // const cards = [...Array(20).keys()].reverse().map(n => n + 1);
-  const totalHeight = items.length * itemHeight + 800;
-  function parseScroll(y) {
-      if (container.scrollTop >= (y + 150) || container.scrollTop <= (y - 150) || container.scrollTop === 0) {
-        yScroll.set(container.scrollTop)
-      }
+  const totalHeight = $items.length * itemHeight + 720;
+
+  async function parseScroll(y) {
+    if (container.scrollTop >= y|| container.scrollTop <= y || container.scrollTop === 0) {
+      yScroll.set(container.scrollTop)
+    }
+
+    if ($yScroll > ((itemIndexStart + 1)  * itemHeight)) {
+        itemSet = items.getCurrentSet(itemIndexStart + 1);
+        itemIndexStart += 1;
+        await tick();
+    } else if ($yScroll < ((itemIndexStart - 1)  * itemHeight)) {
+        itemSet = items.getCurrentSet(itemIndexStart - 1);
+        itemIndexStart -= 1;
+        await tick();
+    }
   }
+
 </script>
 
 <div class="text">
-	<span style="opacity: {1 - Math.max(0, $yScroll / 40)}">
+	<span style="opacity: {1 - Math.max(0, $yScroll)}">
 		scroll down
 	</span>
 	<div class="foreground">
@@ -32,7 +41,7 @@
 
 <div class="fixed-container" bind:this={container} on:scroll={() => parseScroll($yScroll)}>
   <div class="card-container" style="height: {totalHeight}px">
-    {#each items as item, index}
+    {#each itemSet as item, index}
       <IndexCard {item} {index} {itemHeight} />
     {/each}
     <div class="rod" />
@@ -50,7 +59,6 @@
 
   .card-container {
 		width: 100%;
-		height: 4000px;
   }
 
   .rod {
@@ -64,57 +72,11 @@
     z-index: 5;
 	}
 
-	.card {
-		position: fixed;
-		top: 20%;
-		left: 33%;
-    width: 450px;
-    height: 260px;
-    transform-origin: left bottom;
-	}
-
-  .tab {
-    position: absolute;
-    top: 0;
-    width: 170px;
-    height: 40px;
-    padding: 5px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    background-color: white;
-    border: 1px solid black;
-    border-bottom: 1px solid white;
-  }
-
-  .tab-mask {
-    position: absolute;
-    top:-1px;
-    width: 180px;
-    height: 1px;
-    background-color:#fff;
-}
-
-  .body {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 100%;
-    height: 220px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    background-color: white;
-    border: .5px solid black;
-  }
-
-  .content {
-    padding: 5px;
-  }
-
 	.text {
 		position: relative;
 		width: 100%;
 		height: 300vh;
-		color: rgb(220,113,43);
+		color: cargb(220,113,43);
 		text-align: center;
 		padding: 4em 0.5em 0.5em 0.5em;
 		box-sizing: border-box;
