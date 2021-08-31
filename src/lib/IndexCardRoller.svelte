@@ -16,9 +16,9 @@
     }
 
     if ($yScroll > ((itemIndexStart + 1)  * scrollItemHeight)) {
+        await tick();
         itemSet = items.getCurrentSet(itemIndexStart + 1);
         itemIndexStart += 1;
-        await tick();
     } else if ($yScroll < ((itemIndexStart - 1)  * scrollItemHeight + scrollItemHeight)) {
         await tick();
         itemSet = items.getCurrentSet(itemIndexStart - 1);
