@@ -1,5 +1,5 @@
 <script>
-  import { yScroll } from '../stores/store';
+  import { yScroll, owners } from '../stores/store';
   import { 
     itemHeight, 
     scrollItemHeight, 
@@ -15,7 +15,13 @@
   export let fullIndex;
   export let item;
 
+  $: owner = $owners.find(o => o.id === item.owner_id);
+
   $: deg =  ($yScroll % scrollItemHeight) / degMultiplier;
+
+  function scrollCard(e) {
+    debugger
+  }
 
   function getCardPosition(index) {
     const previous = itemIndexStart === 0 ? null : index === 0;
@@ -43,19 +49,27 @@
 
 <div 
   class="card" 
-  style={cardStyle($yScroll, index)}>
-  <div class="tab" style={fullIndex % 2 === 0 ? `right: -2px; width: ${tabWidth}px` : `left: 0; width: ${tabWidth}px`}>
+  style={cardStyle($yScroll, index)}
+  on:click={scrollCard}>
+  <div class="tab" style={`right: -2px; width: ${tabWidth}px`}>
     <div class="tab-content">
       <span class="index-number">{fullIndex + 1}</span>
-      {item.name}  
+      {owner.name}
     </div>
   </div>
-  <div class="body" style={fullIndex % 2 === 0 ? "border-top-left-radius: 5px;" : "border-top-right-radius: 5px;"}>
-    <div class="tab-mask" style={fullIndex % 2 === 0 ? `left: 0; width: ${topWithoutTab}px` : `right: 0; width: ${topWithoutTab}px`} />
+  <div class="body">
+    <div class="tab-mask" style={`left: 0; width: ${topWithoutTab}px`} />
     <div class="content">
-      {item.team}<br />
-      ${item.cost}  
-      <div class="cost">{item.position}</div>
+      <div class="name">{item.name}</div>
+      <div class="team">{item.team}</div>
+      {#if item.img}
+        <img src={item.img} alt={item.name} />
+      {/if}
+      <div class="cost">${item.cost}</div>
+      <div class="position">{item.position}</div>
+      {#if item.keeper}
+        <div class="keeper">KEEPER</div>
+      {/if}
     </div>
   </div>
 </div>
@@ -63,10 +77,23 @@
 <style>
 	.card {
 		position: fixed;
-		top: 80px;
+		top: 100px;
 		left: 50px;
     transform-origin: left bottom;
+    pointer-events: none;
 	}
+
+  @media (max-width: 720px) {
+	.card {
+		  left: 20px;
+    }
+  }
+
+  @media (max-width: 400px) {
+	.card {
+		  left: 5px;
+    }
+  }
 
   .tab {
     position: absolute;
@@ -79,7 +106,9 @@
     border: 1px solid #83E0A1;
     border-bottom: 1px solid #83E0A1;
     font-size: 12px;
+    font-weight: 100;
     text-overflow: ellipsis;
+    box-shadow: -5px 0 5px -7px #333;
   }
 
   .tab-content {
@@ -88,43 +117,66 @@
 
   .tab-mask {
     position: absolute;
-    top:-1px;
+    top: 1px;
     height: 1px;
-    border-top: 1px solid #333;
+    background-color: #83E0A1;
+    /* box-shadow: -5px -1px 7px #333; */
 }
 
-.index-number {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 8px;
-}
-
+  .index-number {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 8px;
+  }
 
   .body {
     position: absolute;
     top: 40px;
     left: 0;
     width: 100%;
-    height: 220px;
+    height: 175px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     background-color: #83E0A1;
     border: .5px solid #83E0A1;
-    box-shadow: -5px 0 5px -7px #333
+    box-shadow: -5px 0 5px -7px #333;
+    border-top-right-radius: 5px;
+    border-bottom: 11px solid black;
   }
 
   .content {
     padding: 15px;
-    font-size: 24px;
     position: relative;
     height: 100%;
   }
 
-  .cost {
+  img {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    border-radius: 100%;
+    width: 140px;
+    height: auto;
+  }
+
+  /* @media (max-width: 400px) {
+	  img {
+      }
+  } */
+
+
+  .name {
+    font-size: 24px;
+  }
+
+  .team {
+    font-size: 16px;
+  }
+
+  .cost, .position {
     position: absolute;
     bottom: 40px;
-    right: 10px;
     font-size: 36px;
     border-radius: 5px;
     padding: 6px;
@@ -134,5 +186,21 @@
     letter-spacing: 0rem;
     background: white;
     box-shadow: -5px 0 5px -7px #333;
+  }
+
+  .position {
+    left: 10px;
+  }
+  .cost {
+    right: 10px;
+    background: #333;
+    color: #fff;
+  }
+  .keeper {
+    position: absolute;
+    bottom: 94px;
+    right: 22px;
+    font-size: 12px;
+    font-weight: bold;
   }
 </style>

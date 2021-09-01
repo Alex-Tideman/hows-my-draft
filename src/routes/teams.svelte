@@ -13,26 +13,29 @@
 	// it so that it gets served as a static asset in prod
 	export const prerender = true;
 </script>
+<script lang="ts">
+	import Scroller from '$lib/Scroller.svelte';
+</script>
 
 <svelte:head>
-	<title>Projects</title>
+	<title>Teams</title>
 </svelte:head>
 
-<div class="content">
-	<h1>My Projects</h1>
-
-	<p>Here's a list of stuff I've made...</p>
-
-	<!-- TODO lose the @next! -->
-	<pre>Projects</pre>
-
-	<h3>More here..</h3>
+<div class="fixed-container">
+	<div class="content">
+		Team results to go here...
+	</div>	
 </div>
 
 <style>
+	.fixed-container {
+		position: fixed;
+		width: 100%;
+		height: 100vh;
+    overflow: auto;
+	}
 	.content {
 		width: 100%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top) auto 0 auto;
+		padding: 100px
 	}
 </style>

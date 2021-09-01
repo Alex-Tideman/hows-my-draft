@@ -2,7 +2,7 @@
   import { tick } from 'svelte';
   import { yScroll, items } from '../stores/store';
   import IndexCard from './IndexCard.svelte';
-  import { scrollItemHeight } from './settings';
+  import { scrollItemHeight, itemWidth } from './settings';
 
   let container;
   let itemIndexStart = 0;
@@ -59,7 +59,7 @@
 		position: relative;
 		width: 100%;
 		height: 300vh;
-		color: cargb(220,113,43);
+    color: #333;
 		text-align: center;
 		padding: 4em 0.5em 0.5em 0.5em;
 		box-sizing: border-box;
