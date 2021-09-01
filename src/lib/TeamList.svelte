@@ -134,10 +134,9 @@
     height: auto;
     width: 100%;
     margin: 10px 0;
+    background-color: #f5f5f5;
+    box-shadow: -5px 0 5px -7px #333;
     padding: 10px;
-    background-color: #333;
-    color: #f5f5f5;
-
   }
 
   .owner {
@@ -146,6 +145,9 @@
 
   .position-title {
     text-align: center;
+    background-color: #333;
+    box-shadow: -5px 0 5px -7px #f5f5f5;
+    color: #f5f5f5;
   }
 
 </style>
