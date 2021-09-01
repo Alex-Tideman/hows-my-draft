@@ -27,7 +27,7 @@ const members = [
 ]
 
 const players = [
-	{ name: "Jonathan Taylor", team: "Indianapolis", position: "RB", cost: 26, owner_id: 1, keeper: true, img: "https://s.yimg.com/it/api/res/1.2/7x3feJGBPDfGXr5VRs3sSg--~A/YXBwaWQ9eW5ld3M7dz0zMDA7aD0yMDA7cT0xMDA-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08252021/32711.1.png" },
+	{ name: "Jonathan Taylor", team: "Indianapolis Colts", position: "RB", cost: 26, owner_id: 1, keeper: true, img: "https://s.yimg.com/it/api/res/1.2/7x3feJGBPDfGXr5VRs3sSg--~A/YXBwaWQ9eW5ld3M7dz0zMDA7aD0yMDA7cT0xMDA-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08252021/32711.1.png" },
 	{ name: "Darrell Henderson Jr.", team: "LA Rams", position: "RB", cost: 6, owner_id: 2, keeper: true, img: "https://s.yimg.com/it/api/res/1.2/3MAX8W8e472Zu5RlPPqclw--~A/YXBwaWQ9eW5ld3M7dz0zMDA7aD0yMDA7cT0xMDA-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08232021/31902.png" },
 	{ name: "Nick Chubb", team: "Cleveland Browns", position: "QB", cost: 16, owner_id: 3, keeper: true, img: "https://s.yimg.com/it/api/res/1.2/1awOUD54SRsBSmOHyeGbBw--~A/YXBwaWQ9eW5ld3M7dz0zMDA7aD0yMDA7cT0xMDA-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/10012020/31005.png" },
 	{ name: "", team: "", position: "", owner_id: 4, cost: 0, keeper: true },

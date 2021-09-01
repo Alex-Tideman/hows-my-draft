@@ -101,7 +101,7 @@
     border: 1px solid #83E0A1;
     border-bottom: 1px solid #83E0A1;
     font-size: 12px;
-    font-weight: 100;
+    font-weight: 200;
     text-overflow: ellipsis;
     box-shadow: -5px 0 5px -7px #333;
   }
