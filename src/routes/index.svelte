@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Draft</title>
 </svelte:head>
 
 <IndexCardRoller />

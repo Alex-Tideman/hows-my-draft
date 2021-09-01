@@ -19,10 +19,6 @@
 
   $: deg =  ($yScroll % scrollItemHeight) / degMultiplier;
 
-  function scrollCard(e) {
-    debugger
-  }
-
   function getCardPosition(index) {
     const previous = itemIndexStart === 0 ? null : index === 0;
     const current = itemIndexStart === 0 ? index === 0 : index === 1;
@@ -49,8 +45,7 @@
 
 <div 
   class="card" 
-  style={cardStyle($yScroll, index)}
-  on:click={scrollCard}>
+  style={cardStyle($yScroll, index)}>
   <div class="tab" style={`right: -2px; width: ${tabWidth}px`}>
     <div class="tab-content">
       <span class="index-number">{fullIndex + 1}</span>
@@ -91,7 +86,7 @@
 
   @media (max-width: 400px) {
 	.card {
-		  left: 5px;
+		  left: 10px;
     }
   }
 
