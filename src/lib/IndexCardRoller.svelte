@@ -15,7 +15,7 @@
       yScroll.set(container.scrollTop)
     }
 
-    if ($yScroll > ((itemIndexStart + 1)  * scrollItemHeight)) {
+    if ($yScroll >= ((itemIndexStart + 1)  * scrollItemHeight)) {
         await tick();
         itemSet = items.getCurrentSet(itemIndexStart + 1);
         itemIndexStart += 1;

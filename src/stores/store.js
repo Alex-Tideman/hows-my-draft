@@ -14,16 +14,16 @@ yScroll.subscribe(value => {
 // const cards = [...Array(200).keys()].map(n => getPlayer(n + 1));
 
 const players = [
-	{ name: "Aaron Rodgers 1", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 2", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 3", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 4", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 5", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 6", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 7", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 8", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 9", team: "Green Bay Packers", position: "QB" },
-	{ name: "Aaron Rodgers 10", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers St. Sthoasdfasdfs", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
+	{ name: "Aaron Rodgers", team: "Green Bay Packers", position: "QB" },
 ];
 
 // 1000 players
