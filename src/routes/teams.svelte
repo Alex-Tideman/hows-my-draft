@@ -14,28 +14,11 @@
 	export const prerender = true;
 </script>
 <script lang="ts">
-	import Scroller from '$lib/Scroller.svelte';
+	import TeamList from '$lib/TeamList.svelte';
 </script>
 
 <svelte:head>
 	<title>Teams</title>
 </svelte:head>
 
-<div class="fixed-container">
-	<div class="content">
-		Team results to go here...
-	</div>	
-</div>
-
-<style>
-	.fixed-container {
-		position: fixed;
-		width: 100%;
-		height: 100vh;
-    overflow: auto;
-	}
-	.content {
-		width: 100%;
-		padding: 100px
-	}
-</style>
+<TeamList />

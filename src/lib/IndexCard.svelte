@@ -155,12 +155,6 @@
     height: auto;
   }
 
-  /* @media (max-width: 400px) {
-	  img {
-      }
-  } */
-
-
   .name {
     font-size: 24px;
   }
