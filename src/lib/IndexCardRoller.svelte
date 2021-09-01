@@ -11,7 +11,7 @@
   const totalHeight = ($items.length * scrollItemHeight) + scrollItemHeight;
 
   async function parseScroll(y) {
-    if (container.scrollTop >= y|| container.scrollTop <= y || container.scrollTop === 0) {
+    if (container.scrollTop >= y || container.scrollTop < y || container.scrollTop === 0) {
       yScroll.set(container.scrollTop)
     }
 

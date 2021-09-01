@@ -54,7 +54,8 @@
     <div class="tab-mask" style={fullIndex % 2 === 0 ? `left: 0; width: ${topWithoutTab}px` : `right: 0; width: ${topWithoutTab}px`} />
     <div class="content">
       {item.team}<br />
-      {item.position}  
+      ${item.cost}  
+      <div class="cost">{item.position}</div>
     </div>
   </div>
 </div>
@@ -116,5 +117,22 @@
   .content {
     padding: 15px;
     font-size: 24px;
+    position: relative;
+    height: 100%;
+  }
+
+  .cost {
+    position: absolute;
+    bottom: 40px;
+    right: 10px;
+    font-size: 36px;
+    border-radius: 5px;
+    padding: 6px;
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    letter-spacing: 0rem;
+    background: white;
+    box-shadow: -5px 0 5px -7px #333;
   }
 </style>

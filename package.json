@@ -1,6 +1,7 @@
 {
-  "name": "svelteblog",
+  "name": "index-card",
   "version": "0.0.1",
+  "author": "Alex Tideman",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
