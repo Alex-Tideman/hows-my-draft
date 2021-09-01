@@ -15,7 +15,9 @@
       yScroll.set(container.scrollTop)
     }
 
-    if ($yScroll >= ((itemIndexStart + 1)  * scrollItemHeight)) {
+    if (y <= 0) {
+      // do nothing
+    } else if ($yScroll > ((itemIndexStart + 1)  * scrollItemHeight)) {
         await tick();
         itemSet = items.getCurrentSet(itemIndexStart + 1);
         itemIndexStart += 1;
@@ -48,8 +50,10 @@
 		position: fixed;
 		width: 100%;
 		height: 100vh;
+    min-height: 100vh;
     overflow: auto;
 	}
+
 
   .card-container {
 		width: 100%;
