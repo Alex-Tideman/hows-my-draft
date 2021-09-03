@@ -1,5 +1,6 @@
 import { readable, writable } from 'svelte/store';
-import { groupBy } from 'lodash';
+import lodash from 'lodash';
+const { groupBy } = lodash;
 import { 
 	keepers, round1, round2, round3, round4,
 	round5, round6, round7, round8, round9,
