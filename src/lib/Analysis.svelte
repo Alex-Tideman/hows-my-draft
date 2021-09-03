@@ -1,13 +1,27 @@
 <script>
+  import { LayerCake, Svg, Html, Canvas } from 'layercake';
+  import { scaleBand } from 'd3-scale';
+
   import { owners, items } from '../stores/store';
-  import FlatIndexCard from './FlatIndexCard.svelte';
+
+  import Line from './components/Line.svelte';
+  import Area from './components/Area.svelte';
+  import AxisX from './components/AxisX.svelte';
+  import AxisY from './components/AxisY.svelte';
+
+  const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
+
+  const stats = [
+    { id: 1, name: "Dollars per Position" },
+    { id: 2, name: "Dollars per Round" },
+  ]
 
   $: activeOwner = $owners[0];
-  $: qbs = items.getPositionSet('QB', activeOwner.id);
-  $: rbs = items.getPositionSet('RB', activeOwner.id);
-  $: wrs = items.getPositionSet('WR', activeOwner.id);
-  $: tes = items.getPositionSet('TE', activeOwner.id);
-  $: dks = items.getPositionSets(['DEF', 'K'], activeOwner.id);
+  $: activeChart = stats[0];
+
+  $: positionData = items.getPositionData(activeOwner.id);
+  $: roundData = items.getRoundData(activeOwner.id);
+
 	function handleClick(owner) {
 		activeOwner = owner;
 	}
@@ -21,35 +35,30 @@
         </button>
       {/each}
     </div>
-    <div class="qb-container">
-      <div class="position-title">QB</div>
-      {#each qbs as item}
-        <FlatIndexCard {item} />
+    <div class="stat-container">
+      {#each stats as item}
+        <button class="owner" >
+          {item.name}
+        </button>
       {/each}
     </div>
-    <div class="rb-container">
-      <div class="position-title">RB</div>
-      {#each rbs as item}
-        <FlatIndexCard {item} />
-      {/each}
-    </div>
-    <div class="wr-container">
-      <div class="position-title">WR</div>
-      {#each wrs as item}
-        <FlatIndexCard {item} />
-      {/each}
-    </div>
-    <div class="te-container">
-      <div class="position-title">TE</div>
-      {#each tes as item}
-        <FlatIndexCard {item} />
-      {/each}
-    </div>
-    <div class="dk-container">
-      <div class="position-title">DEF / K</div>
-      {#each dks as item}
-        <FlatIndexCard {item} />
-      {/each}
+    <div class="chart-container">
+      <LayerCake
+        padding={{ left: 20, right: 10, bottom: 20, top: 50 }}
+        x='round'
+        y='cost'
+        yDomain={[0, 100]}
+        data={roundData}
+      >
+        <Svg>
+          <AxisX/>
+          <AxisY
+            ticks={4}
+          />
+          <Line/>
+          <Area/>
+        </Svg>
+      </LayerCake>  
     </div>
 </div>
 
@@ -64,16 +73,16 @@
     overflow: auto;
 	}
 	
-  .owner-container {
-    height: 100%;
-    margin: 0 5px;
-    width:  220px;
-  }
-  .qb-container, .rb-container, .wr-container, .te-container, .dk-container {
+  .owner-container, .stat-container {
 		height: 100%;
     margin: 0 5px;
-    width:  calc(18% - 40px);
+    flex: 0 1 calc(20% - 10px); /* <-- adjusting for margin */
 	}
+
+  .chart-container {
+    height: 400px;
+    width: 600px;
+  }
 
   .owner {
    display: inline-block;
@@ -91,7 +100,7 @@
    cursor: pointer;
   }
 
-  .owner, .position-title {
+  .owner, .title {
     position: relative;
     height: auto;
     width: 100%;
@@ -100,16 +109,16 @@
     padding: 10px 0;
   }
 
-  .position-title {
+  .position-title, .team-title {
     text-align: center;
     background-color: #333;
     box-shadow: -5px 0 5px -7px #f5f5f5;
     color: #f5f5f5;
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 762px) {
     #container {
-      width: 1200px;
+      width: 250vw;
     }
 }
 

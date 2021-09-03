@@ -62,7 +62,7 @@
       {/if}
       <div class="cost">${item.cost}</div>
       <div class="position">{item.position}</div>
-      {#if item.keeper}
+      {#if item.round === 0}
         <div class="keeper">KEEPER</div>
       {/if}
     </div>
@@ -166,7 +166,7 @@
   .cost, .position {
     position: absolute;
     bottom: 40px;
-    font-size: 36px;
+    font-size: 32px;
     border-radius: 5px;
     padding: 6px;
     width: 60px;

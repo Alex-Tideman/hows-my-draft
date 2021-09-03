@@ -3,7 +3,6 @@
 
   const dispatch = createEventDispatcher();
 
-  export let index = 0;
   export let item;
 
   function sendOwner() {
@@ -15,6 +14,7 @@
 
 <div 
   class="card" 
+  style="background-color: rgba(131, 224, 161, {item.cost / 50});"
   on:click={sendOwner}>
     <div class="content">
       <div class="name">{item.name}</div>
@@ -27,7 +27,7 @@
       {#if item.cost}
         <div class="cost">${item.cost}</div>
       {/if}
-      {#if item.keeper}
+      {#if item.round === 0}
         <div class="keeper">KEEPER</div>
       {/if}
     </div>
@@ -38,14 +38,12 @@
     position: relative;
     height: 120px;
     width: 100%;
-    margin: 30px 0;
+    margin: 5px 0 10px 0;
 	}
 
   .content {
-    padding: 10px;
     position: relative;
     height: 100%;
-    background-color: #83E0A1;
     box-shadow: -5px 0 5px -7px #333;
   }
 
@@ -54,26 +52,28 @@
     bottom: 5px;
     right: 0;
     border-radius: 100%;
-    width: 140px;
+    width: 80px;
     height: auto;
   }
 
   .name {
+    padding: 10px 0 0 10px;
     font-size: 16px;
   }
 
   .team {
+    padding: 0 0 0 10px;
     font-size: 12px;
   }
 
   .cost {
     position: absolute;
     bottom: 5px;
-    font-size: 36px;
+    font-size: 32px;
     border-radius: 5px;
     padding: 6px;
     width: 60px;
-    height: 40px;
+    height: 36px;
     text-align: center;
     letter-spacing: 0rem;
     background: white;

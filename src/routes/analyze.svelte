@@ -14,11 +14,11 @@
 	export const prerender = true;
 </script>
 <script lang="ts">
-	import TeamList from '$lib/TeamList.svelte';
+	import Analysis from '$lib/Analysis.svelte';
 </script>
 
 <svelte:head>
 	<title>Teams</title>
 </svelte:head>
 
-<TeamList slot="teams" />
+<Analysis slot="analyze" />

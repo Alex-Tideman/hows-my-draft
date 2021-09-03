@@ -10,12 +10,5 @@
 	<title>Draft</title>
 </svelte:head>
 
-<IndexCardRoller />
+<IndexCardRoller slot="draft"/>
 
-<style>
-	:global(body) {
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
-	}
-</style>
