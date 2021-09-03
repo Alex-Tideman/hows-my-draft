@@ -1,11 +1,12 @@
 <script>
   import { LayerCake, Svg, Html, Canvas } from 'layercake';
   import { scaleBand } from 'd3-scale';
+	import { browser } from '$app/env';
 
   import { owners, items } from '../stores/store';
 
   import Line from './components/Line.svelte';
-  import Area from './components/Area.svelte';
+  import Bar from './components/Bar.svelte';
   import AxisX from './components/AxisX.svelte';
   import AxisY from './components/AxisY.svelte';
 
@@ -45,9 +46,11 @@
     <div class="chart-container">
       <LayerCake
         padding={{ left: 20, right: 10, bottom: 20, top: 50 }}
-        x='round'
-        y='cost'
+        x="round"
+        y="cost"
+        xScale={scaleBand().paddingInner([0.02]).round(true)}
         yDomain={[0, 100]}
+        xDomain={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]}  
         data={roundData}
       >
         <Svg>
@@ -55,8 +58,7 @@
           <AxisY
             ticks={4}
           />
-          <Line/>
-          <Area/>
+          <Bar/>
         </Svg>
       </LayerCake>  
     </div>
