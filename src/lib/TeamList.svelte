@@ -16,7 +16,7 @@
 <div id="container">
     <div class="owner-container">
       {#each $owners as item}
-        <button class="owner" style={activeOwner.id === item.id ? "background-color: #83E0A1; color: #333" : ""} on:click={() => handleClick(item)} >
+        <button class="owner" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleClick(item)} >
           {item.name}
         </button>
       {/each}
@@ -108,9 +108,14 @@
   }
 
   @media (max-width: 1200px) {
-    #container {
-      width: 1200px;
+    .owner-container {
+      flex: 0 2 calc(100% - 10px); /* <-- adjusting for margin */
     }
-}
+    .qb-container, .rb-container, .wr-container, .te-container, .dk-container {
+		height: 100%;
+    margin: 0 5px;
+    flex: 0 1 calc(100% - 10px); /* <-- adjusting for margin */
+    }
+  }
 
 </style>

@@ -10,35 +10,44 @@
   import AxisX from './components/AxisX.svelte';
   import AxisY from './components/AxisY.svelte';
 
-  const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
-
   const stats = [
     { id: 1, name: "Dollars per Position" },
     { id: 2, name: "Dollars per Round" },
   ]
 
-  $: activeOwner = $owners[0];
-  $: activeChart = stats[0];
+  $: activeOwner = { id: 0 };
+  $: activeStat = stats[0];
 
   $: positionData = items.getPositionData(activeOwner.id);
   $: roundData = items.getRoundData(activeOwner.id);
 
-	function handleClick(owner) {
+	function handleOwnerClick(owner) {
 		activeOwner = owner;
 	}
+
+  function handleStatClick(stat) {
+		activeStat = stat;
+	}
+
+  $: data = activeStat.id === 1 ? positionData : roundData;
+  $: yDomain = activeStat.id === 1 ? [0, activeOwner.id === 0 ? 1000 : 200] : [0, activeOwner.id === 0 ? 500 : 100];
+  $: xDomain = activeStat.id === 1 ? ['QB', 'RB', 'WR', 'TE', 'DEF', 'K'] : [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
 </script>
 
 <div id="container">
     <div class="owner-container">
-      {#each $owners as item}
-        <button class="owner" style={activeOwner.id === item.id ? "background-color: #83E0A1; color: #333" : ""} on:click={() => handleClick(item)} >
+        <button class="owner" style={activeOwner.id === 0 ? "background-color: #00e047; color: #333" : ""} on:click={() => handleOwnerClick({ id: 0 })} >
+          All
+        </button>
+        {#each $owners as item}
+        <button class="owner" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleOwnerClick(item)} >
           {item.name}
         </button>
       {/each}
     </div>
     <div class="stat-container">
       {#each stats as item}
-        <button class="owner" >
+        <button class="stat" style={activeStat.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleStatClick(item)}>
           {item.name}
         </button>
       {/each}
@@ -46,12 +55,12 @@
     <div class="chart-container">
       <LayerCake
         padding={{ left: 20, right: 10, bottom: 20, top: 50 }}
-        x="round"
-        y="cost"
+        x="label"
+        y="value"
         xScale={scaleBand().paddingInner([0.02]).round(true)}
-        yDomain={[0, 100]}
-        xDomain={[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]}  
-        data={roundData}
+        yDomain={yDomain}
+        xDomain={xDomain}  
+        data={data}
       >
         <Svg>
           <AxisX/>
@@ -68,11 +77,10 @@
 	#container {
     position: relative;
     padding-top: 40px;
-    display: inline-flex;
+    display: flex;
     flex-flow: row wrap;
     width: 100%;
     height: auto;
-    overflow: auto;
 	}
 	
   .owner-container, .stat-container {
@@ -82,11 +90,13 @@
 	}
 
   .chart-container {
-    height: 400px;
     width: 600px;
+    height: 400px;
+    margin-left: 20px;
+    flex: 0 1 calc(50% - 10px); /* <-- adjusting for margin */
   }
 
-  .owner {
+  .owner, .stat {
    display: inline-block;
    padding: 2px 4px;
    margin: 0 2px;
@@ -100,10 +110,7 @@
    transition: all 0.2s;
    margin: 2px;
    cursor: pointer;
-  }
-
-  .owner, .title {
-    position: relative;
+   position: relative;
     height: auto;
     width: 100%;
     background-color: #f5f5f5;
@@ -111,17 +118,22 @@
     padding: 10px 0;
   }
 
-  .position-title, .team-title {
-    text-align: center;
-    background-color: #333;
-    box-shadow: -5px 0 5px -7px #f5f5f5;
-    color: #f5f5f5;
-  }
-
   @media (max-width: 762px) {
-    #container {
-      width: 250vw;
+    .owner-container, .stat-container {
+      height: 100%;
+      margin: 0 5px;
+      flex: 0 1 calc(50% - 10px); /* <-- adjusting for margin */
     }
-}
+    .chart-container  {
+      flex: 0 1 calc(100% - 10px);
+    }
+
+
+    .owner, .stat {
+      padding: 1px 2px;
+      margin: 0 1px;
+      font-size: 12px;
+    }
+  }
 
 </style>

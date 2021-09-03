@@ -14,7 +14,6 @@
 
 <div 
   class="card" 
-  style="background-color: rgba(131, 224, 161, {item.cost / 50});"
   on:click={sendOwner}>
     <div class="content">
       <div class="name">{item.name}</div>
@@ -39,6 +38,7 @@
     height: 120px;
     width: 100%;
     margin: 5px 0 10px 0;
+    background-color: #00e047;
 	}
 
   .content {

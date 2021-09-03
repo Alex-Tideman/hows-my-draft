@@ -45,19 +45,19 @@ const itemStore = (initialValue) => {
 			return initialValue.filter(i => positions.includes(i.position) && i.owner_id === id);
 		},
 		getPositionData: (id: number) => {
-			const ownerData = initialValue.filter(i => i.owner_id === id)
-			const positions = groupBy(ownerData, 'position')
-			return Object.keys(positions).map(key => {
+			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
+			const positions = groupBy(ownerData, 'position');
+			const positionData = Object.keys(positions).map(key => {
 				return { label: key, value: positions[key].reduce((sum, i) => sum += i.cost, 0)}
 			})
+			return positionData;
 		},
 		getRoundData: (id: number) => {
-			const ownerData = initialValue.filter(i => i.owner_id === id)
+			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
 			const rounds = groupBy(ownerData, 'round');
 			const roundData = Object.keys(rounds).map(key => {
-				return { round: parseInt(key), cost: rounds[key].reduce((sum, i) => sum += i.cost, 0)}
+				return { label: parseInt(key), value: rounds[key].reduce((sum, i) => sum += i.cost, 0)}
 			})
-			console.log("roundData: ", roundData)
 			return roundData;
 		}
   }
