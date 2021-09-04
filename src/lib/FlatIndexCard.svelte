@@ -38,7 +38,7 @@
     height: 120px;
     width: 100%;
     margin: 5px 0 10px 0;
-    background-color: #00e047;
+    background-color: #E5E5BE;
 	}
 
   .content {
@@ -50,7 +50,7 @@
   img {
     position: absolute;
     bottom: 5px;
-    right: 0;
+    left: 0;
     border-radius: 100%;
     width: 80px;
     height: auto;
@@ -69,24 +69,26 @@
   .cost {
     position: absolute;
     bottom: 5px;
-    font-size: 32px;
+    border-radius: 5px;
+    font-size: 24px;
     border-radius: 5px;
     padding: 6px;
     width: 60px;
-    height: 36px;
+    height: 26px;
     text-align: center;
     letter-spacing: 0rem;
     background: white;
     box-shadow: -5px 0 5px -7px #333;
-    left: 10px;
-    background: #333;
-    color: #fff;
+    right: 10px;
+    color: #333;
+    background: #00e047;
+    font-weight: bold;
   }
 
   .keeper {
     position: absolute;
-    bottom: 58px;
-    left: 18px;
+    bottom: 44px;
+    right: 18px;
     font-size: 12px;
     font-weight: bold;
   }

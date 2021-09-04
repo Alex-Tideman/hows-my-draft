@@ -97,9 +97,9 @@
     padding: 5px;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    background-color: #00e047;
-    border: 1px solid #00e047;
-    border-bottom: 1px solid #00e047;
+    background-color: #E5E5BE;
+    border: 1px solid #E5E5BE;
+    border-bottom: 1px solid #E5E5BE;
     font-size: 12px;
     font-weight: 200;
     text-overflow: ellipsis;
@@ -114,7 +114,7 @@
     position: absolute;
     top: 1px;
     height: 1px;
-    background-color: #00e047;
+    background-color: #E5E5BE;
     /* box-shadow: -5px -1px 7px #333; */
 }
 
@@ -133,8 +133,8 @@
     height: 175px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: #00e047;
-    border: .5px solid #00e047;
+    background-color: #E5E5BE;
+    border: .5px solid #E5E5BE;
     box-shadow: -5px 0 5px -7px #333;
     border-top-right-radius: 5px;
     border-bottom: 11px solid black;
@@ -163,8 +163,9 @@
     font-size: 16px;
   }
 
-  .cost, .position {
+  .position {
     position: absolute;
+    left: 10px;
     bottom: 40px;
     font-size: 32px;
     border-radius: 5px;
@@ -181,13 +182,24 @@
     left: 10px;
   }
   .cost {
+    position: absolute;
     right: 10px;
-    background: #333;
-    color: #fff;
+    bottom: 36px;
+    font-size: 24px;
+    border-radius: 5px;
+    padding: 6px;
+    width: 60px;
+    height: 26px;
+    text-align: center;
+    letter-spacing: 0rem;
+    box-shadow: -5px 0 5px -7px #333;
+    color: #333;
+    background: #00e047;
+    font-weight: bold;
   }
   .keeper {
     position: absolute;
-    bottom: 94px;
+    bottom: 74px;
     right: 22px;
     font-size: 12px;
     font-weight: bold;

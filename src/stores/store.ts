@@ -44,6 +44,14 @@ const itemStore = (initialValue) => {
 		getPositionSets: (positions: string[], id: number) => {
 			return initialValue.filter(i => positions.includes(i.position) && i.owner_id === id);
 		},
+		getRoundData: (id: number) => {
+			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
+			const rounds = groupBy(ownerData, 'round');
+			const roundData = Object.keys(rounds).map(key => {
+				return { label: parseInt(key), value: rounds[key].reduce((sum, i) => sum += i.cost, 0)}
+			})
+			return roundData;
+		},
 		getPositionData: (id: number) => {
 			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
 			const positions = groupBy(ownerData, 'position');
@@ -52,14 +60,22 @@ const itemStore = (initialValue) => {
 			})
 			return positionData;
 		},
-		getRoundData: (id: number) => {
+		getRoundPercentageData: (id: number) => {
 			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
 			const rounds = groupBy(ownerData, 'round');
 			const roundData = Object.keys(rounds).map(key => {
-				return { label: parseInt(key), value: rounds[key].reduce((sum, i) => sum += i.cost, 0)}
+				return { label: parseInt(key), value: rounds[key].reduce((sum, i) => sum += i.points, 0)}
 			})
 			return roundData;
-		}
+		},
+		getPositionPercentageData: (id: number) => {
+			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
+			const positions = groupBy(ownerData, 'position');
+			const positionData = Object.keys(positions).map(key => {
+				return { label: key, value: positions[key].reduce((sum, i) => sum += i.points, 0)}
+			})
+			return positionData;
+		},
   }
 }
 

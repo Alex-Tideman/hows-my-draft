@@ -114,8 +114,15 @@
     .qb-container, .rb-container, .wr-container, .te-container, .dk-container {
 		height: 100%;
     margin: 0 5px;
-    flex: 0 1 calc(100% - 10px); /* <-- adjusting for margin */
+    flex: 0 1 calc(50% - 10px); /* <-- adjusting for margin */
     }
   }
+
+  @media (max-width: 460px) {
+    .qb-container, .rb-container, .wr-container, .te-container, .dk-container {
+      flex: 0 1 calc(100% - 10px); /* <-- adjusting for margin */
+    }
+  }
+
 
 </style>

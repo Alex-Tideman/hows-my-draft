@@ -1,7 +1,6 @@
 <script>
   import { LayerCake, Svg, Html, Canvas } from 'layercake';
   import { scaleBand } from 'd3-scale';
-	import { browser } from '$app/env';
 
   import { owners, items } from '../stores/store';
 
@@ -11,15 +10,54 @@
   import AxisY from './components/AxisY.svelte';
 
   const stats = [
-    { id: 1, name: "Dollars per Position" },
-    { id: 2, name: "Dollars per Round" },
+    { id: 1, name: "Dollars per Round" },
+    { id: 2, name: "Dollars per Position" },
+    { id: 3, name: "% Points Per Round" },
+    { id: 4, name: "% Points Per Position" },
   ]
+
+  function getStatData(id, ownerId) {
+    switch (id) {
+      case 1:
+        return items.getRoundData(ownerId);
+      case 2:
+        return items.getPositionData(ownerId);
+      case 3:
+        return items.getRoundPercentageData(ownerId)
+      case 4: 
+        return items.getPositionPercentageData(ownerId);;
+    }
+  }
+
+  function getxDomain(id, ownerId) {
+    switch (id) {
+      case 1:
+      case 3:
+        return [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+      case 2:
+      case 4:
+        return ['QB', 'RB', 'WR', 'TE', 'DEF', 'K'];
+    }
+  }
+
+  function getyDomain(id, ownerId) {
+    switch (id) {
+      case 1:
+        return [0, ownerId === 0 ? 500 : 100];
+      case 2:
+        return [0, ownerId === 0 ? 1000 : 200];
+      case 3:
+      case 4:
+        return [0, 100]
+    }
+  }
 
   $: activeOwner = { id: 0 };
   $: activeStat = stats[0];
 
-  $: positionData = items.getPositionData(activeOwner.id);
-  $: roundData = items.getRoundData(activeOwner.id);
+  $: data = getStatData(activeStat.id, activeOwner.id);
+  $: yDomain = getyDomain(activeStat.id, activeOwner.id);
+  $: xDomain = getxDomain(activeStat.id, activeOwner.id);
 
 	function handleOwnerClick(owner) {
 		activeOwner = owner;
@@ -28,10 +66,6 @@
   function handleStatClick(stat) {
 		activeStat = stat;
 	}
-
-  $: data = activeStat.id === 1 ? positionData : roundData;
-  $: yDomain = activeStat.id === 1 ? [0, activeOwner.id === 0 ? 1000 : 200] : [0, activeOwner.id === 0 ? 500 : 100];
-  $: xDomain = activeStat.id === 1 ? ['QB', 'RB', 'WR', 'TE', 'DEF', 'K'] : [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
 </script>
 
 <div id="container">
@@ -67,7 +101,11 @@
           <AxisY
             ticks={4}
           />
-          <Bar/>
+          <Bar
+          fill={'#E5E5BE'}
+          stroke={'#333'}
+          strokeWidth={1}  
+          />
         </Svg>
       </LayerCake>  
     </div>
@@ -126,13 +164,15 @@
     }
     .chart-container  {
       flex: 0 1 calc(100% - 10px);
+      width: 400px;
+      height: 260px;
     }
 
 
     .owner, .stat {
-      padding: 1px 2px;
-      margin: 0 1px;
-      font-size: 12px;
+      padding: 2px 4px;
+      margin: 2px 4px;
+      font-size: 16px;
     }
   }
 
