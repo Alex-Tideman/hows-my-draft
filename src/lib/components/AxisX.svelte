@@ -66,12 +66,13 @@
 
   line,
   .tick line {
-    stroke: #aaa;
+    stroke: #666;
     stroke-dasharray: 2;
   }
 
   .tick text {
-    fill: #666;
+    fill: #333;
+    font-weight: 700;
   }
 
   .tick .tick-mark,

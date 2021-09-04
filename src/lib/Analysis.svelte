@@ -52,12 +52,24 @@
     }
   }
 
+  function getLegend(id, ownerId) {
+    switch (id) {
+      case 1:
+      case 3:
+        return 'Round';
+      case 2:
+      case 4:
+        return 'Position';
+    }
+  }
+
   $: activeOwner = { id: 0 };
   $: activeStat = stats[0];
 
   $: data = getStatData(activeStat.id, activeOwner.id);
   $: yDomain = getyDomain(activeStat.id, activeOwner.id);
   $: xDomain = getxDomain(activeStat.id, activeOwner.id);
+  $: legend = getLegend(activeStat.id, activeOwner.id);
 
 	function handleOwnerClick(owner) {
 		activeOwner = owner;
@@ -108,6 +120,7 @@
           />
         </Svg>
       </LayerCake>  
+      <div class="legend">{legend}</div>
     </div>
 </div>
 
@@ -132,6 +145,11 @@
     height: 400px;
     margin-left: 20px;
     flex: 0 1 calc(50% - 10px); /* <-- adjusting for margin */
+    text-align: center;
+  }
+
+  .legend {
+    margin: 10px 0;
   }
 
   .owner, .stat {

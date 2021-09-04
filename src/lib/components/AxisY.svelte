@@ -49,26 +49,26 @@
         dx='{isBandwidth ? -9 : dxTick}'
         dy='{isBandwidth ? 4 : dyTick}'
         style="text-anchor:{isBandwidth ? 'end' : textAnchor};"
-      >{formatTick(tick)}</text>
+      >${formatTick(tick)}</text>
     </g>
   {/each}
 </g>
 
 <style>
   .tick {
-    font-size: .725em;
-    font-weight: 200;
+    font-size: .625em;
+    font-weight: 700;
   }
 
   .tick line {
-    stroke: #aaa;
+    stroke: #666;
   }
   .tick .gridline {
     stroke-dasharray: 2;
   }
 
   .tick text {
-    fill: #666;
+    fill: #333;
   }
 
   .tick.tick-0 line {
