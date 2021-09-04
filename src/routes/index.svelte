@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>Analysis</title>
+	<title>How's My Draft</title>
 </svelte:head>
 
 <Analysis slot="analyze" />

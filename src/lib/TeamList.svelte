@@ -95,7 +95,7 @@
     position: relative;
     height: auto;
     width: 100%;
-    background-color: #f5f5f5;
+    background-color: #d0dde9;
     box-shadow: -5px 0 5px -7px #333;
     padding: 10px 0;
   }

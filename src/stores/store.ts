@@ -17,7 +17,7 @@ const members = [
 	{ name: "The Dirty Wash Boyz", id: 5 },
 	{ name: "Papa Bearskin Rug", id: 6 },
 	{ name: "Shawzy", id: 7 },
-	{ name: "Kittle Corn 🌽", id: 8 },
+	{ name: "CeeDee's TDs", id: 8 },
 	{ name: "TheItalianStallions", id: 9 },
 	{ name: "flat TURF rnd GURTH", id: 10 }
 ]
