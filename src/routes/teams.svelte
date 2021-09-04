@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>Teams</title>
+	<title>How's My Draft</title>
 </svelte:head>
 
 <TeamList slot="teams" />

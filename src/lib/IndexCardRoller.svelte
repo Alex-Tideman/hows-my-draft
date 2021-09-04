@@ -32,7 +32,7 @@
 
 <div class="text">
 	<span style="opacity: {1 - Math.max(0, $yScroll)}">
-		scroll down
+		scroll to flip
 	</span>
 </div>
 
@@ -62,17 +62,16 @@
 	.text {
 		position: relative;
 		width: 100%;
-		height: 300vh;
-    color: #333;
+    color: var(--accent-color);
 		text-align: center;
-		padding: 4em 0.5em 0.5em 0.5em;
+		padding: 3em 0.5em 0.5em 0.5em;
 		box-sizing: border-box;
 		pointer-events: none;
 	}
 
 	span {
 		display: block;
-		font-size: 1em;
+		font-size: 1.25em;
 		text-transform: uppercase;
 	}
 </style>

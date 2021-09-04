@@ -38,7 +38,7 @@
     height: 120px;
     width: 100%;
     margin: 5px 0 10px 0;
-    background-color: #E5E5BE;
+    background-color: var(--tertiary-color);
 	}
 
   .content {

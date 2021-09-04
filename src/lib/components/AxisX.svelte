@@ -13,6 +13,7 @@
   export let yTick = 16;
   export let dxTick = 0;
   export let dyTick = 0;
+  export let rotate = false;
 
   $: isBandwidth = typeof $xScale.bandwidth === 'function';
 
@@ -32,7 +33,6 @@
         return 'end';
       }
     }
-    return 'middle';
   }
 </script>
 
@@ -50,6 +50,7 @@
         y='{yTick}'
         dx='{dxTick}'
         dy='{dyTick}'
+        class={rotate ? 'rotate' : ''}
         text-anchor='{textAnchor(i)}'>{formatTick(tick)}</text>
     </g>
   {/each}
@@ -73,6 +74,10 @@
   .tick text {
     fill: #333;
     font-weight: 700;
+  }
+
+  .rotate {
+    transform: rotate(35deg);
   }
 
   .tick .tick-mark,

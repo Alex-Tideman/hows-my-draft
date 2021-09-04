@@ -95,16 +95,20 @@
     position: relative;
     height: auto;
     width: 100%;
-    background-color: #d0dde9;
+    background-color: var(--secondary-color);
     box-shadow: -5px 0 5px -7px #333;
     padding: 10px 0;
   }
 
   .position-title {
     text-align: center;
-    background-color: #333;
+    background-color: var(--pop-color);
     box-shadow: -5px 0 5px -7px #f5f5f5;
     color: #f5f5f5;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: #333;
+    font-weight: 700;
   }
 
   @media (max-width: 1200px) {

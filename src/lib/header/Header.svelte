@@ -39,6 +39,7 @@
 	.corner {
 		width: 3em;
 		height: 3em;
+		padding: 5px;
 	}
 
 	.corner a {
@@ -58,7 +59,7 @@
 	nav {
 		display: flex;
 		justify-content: center;
-		--background: #E5E5BE;
+		--background: var(--tertiary-color);
 	}
 
 	svg {

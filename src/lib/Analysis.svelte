@@ -4,7 +4,6 @@
 
   import { owners, items } from '../stores/store';
 
-  import Line from './components/Line.svelte';
   import Bar from './components/Bar.svelte';
   import AxisX from './components/AxisX.svelte';
   import AxisY from './components/AxisY.svelte';
@@ -12,8 +11,7 @@
   const stats = [
     { id: 1, name: "Dollars per Round" },
     { id: 2, name: "Dollars per Position" },
-    { id: 3, name: "% Points Per Round" },
-    { id: 4, name: "% Points Per Position" },
+    { id: 3, name: "Dollars Per Team" },
   ]
 
   function getStatData(id, ownerId) {
@@ -23,20 +21,18 @@
       case 2:
         return items.getPositionData(ownerId);
       case 3:
-        return items.getRoundPercentageData(ownerId)
-      case 4: 
-        return items.getPositionPercentageData(ownerId);;
+        return items.getTeamData(ownerId)
     }
   }
 
-  function getxDomain(id, ownerId) {
+  function getxDomain(id, ownerId, data) {
     switch (id) {
       case 1:
-      case 3:
         return [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
       case 2:
-      case 4:
         return ['QB', 'RB', 'WR', 'TE', 'DEF', 'K'];
+      case 3:
+        return data.map(d => d.label);
     }
   }
 
@@ -47,19 +43,18 @@
       case 2:
         return [0, ownerId === 0 ? 1000 : 200];
       case 3:
-      case 4:
-        return [0, 100]
+        return [0, ownerId === 0 ? 500 : 100];
     }
   }
 
   function getLegend(id, ownerId) {
     switch (id) {
       case 1:
-      case 3:
         return 'Round';
       case 2:
-      case 4:
         return 'Position';
+      case 3:
+        return 'Team';
     }
   }
 
@@ -68,7 +63,7 @@
 
   $: data = getStatData(activeStat.id, activeOwner.id);
   $: yDomain = getyDomain(activeStat.id, activeOwner.id);
-  $: xDomain = getxDomain(activeStat.id, activeOwner.id);
+  $: xDomain = getxDomain(activeStat.id, activeOwner.id, data);
   $: legend = getLegend(activeStat.id, activeOwner.id);
 
 	function handleOwnerClick(owner) {
@@ -109,14 +104,14 @@
         data={data}
       >
         <Svg>
-          <AxisX/>
+          <AxisX rotate={activeOwner.id === 0 && activeStat.id === 3} />
           <AxisY
             ticks={4}
           />
           <Bar
-          fill={'#E5E5BE'}
+          fill={'#4EBCD5'}
           stroke={'#333'}
-          strokeWidth={1}  
+          strokeWidth={3}  
           />
         </Svg>
       </LayerCake>  
@@ -167,11 +162,11 @@
    margin: 2px;
    cursor: pointer;
    position: relative;
-    height: auto;
-    width: 100%;
-    background-color: #d0dde9;
-    box-shadow: -5px 0 5px -7px #333;
-    padding: 10px 0;
+  height: auto;
+  width: 100%;
+  background-color: var(--secondary-color);
+  box-shadow: -5px 0 5px -7px #333;
+  padding: 10px 0;
   }
 
   @media (max-width: 762px) {
