@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>Teams</title>
+	<title>Analysis</title>
 </svelte:head>
 
 <Analysis slot="analyze" />
