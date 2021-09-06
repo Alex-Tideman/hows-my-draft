@@ -48,7 +48,11 @@ const itemStore = (initialValue) => {
 			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
 			const rounds = groupBy(ownerData, 'round');
 			const roundData = Object.keys(rounds).map(key => {
-				return { label: parseInt(key), value: rounds[key].reduce((sum, i) => sum += i.cost, 0)}
+				let value = rounds[key].reduce((sum, i) => sum += i.cost, 0);
+				if (id === 0) {
+					value = value / members.length
+				}
+				return { label: parseInt(key), value }
 			})
 			return roundData;
 		},
@@ -56,15 +60,23 @@ const itemStore = (initialValue) => {
 			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
 			const positions = groupBy(ownerData, 'position');
 			const positionData = Object.keys(positions).map(key => {
-				return { label: key, value: positions[key].reduce((sum, i) => sum += i.cost, 0)}
+				let value = positions[key].reduce((sum, i) => sum += i.cost, 0);
+				if (id === 0) {
+					value = value / members.length
+				}
+				return { label: key, value }
 			})
 			return positionData;
 		},
 		getTeamData: (id: number) => {
 			const ownerData = id === 0 ? initialValue : initialValue.filter(i => i.owner_id === id)
-			const rounds = groupBy(ownerData.filter(d => Boolean(d.team)), 'team');
-			const teamData = Object.keys(rounds).map(key => {
-				return { label: key, value: rounds[key].reduce((sum, i) => sum += i.cost, 0)}
+			const teams = groupBy(ownerData.filter(d => Boolean(d.team)), 'team');
+			const teamData = Object.keys(teams).map(key => {
+				let value = teams[key].reduce((sum, i) => sum += i.cost, 0);
+				if (id === 0) {
+					value = value / members.length
+				}
+				return { label: key, value }
 			})
 			return sortBy(teamData, 'label');
 		},

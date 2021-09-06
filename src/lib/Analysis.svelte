@@ -39,11 +39,11 @@
   function getyDomain(id, ownerId) {
     switch (id) {
       case 1:
-        return [0, ownerId === 0 ? 500 : 100];
+        return [0, 100];
       case 2:
-        return [0, ownerId === 0 ? 1000 : 200];
+        return [0, 200];
       case 3:
-        return [0, ownerId === 0 ? 500 : 100];
+        return [0, 100];
     }
   }
 
@@ -75,10 +75,10 @@
 	}
 </script>
 
-<div id="container">
+<div class="container">
     <div class="owner-container">
         <button class="owner" style={activeOwner.id === 0 ? "background-color: #00e047; color: #333" : ""} on:click={() => handleOwnerClick({ id: 0 })} >
-          All
+          Average
         </button>
         {#each $owners as item}
         <button class="owner hover-grow" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleOwnerClick(item)} >
@@ -95,7 +95,7 @@
     </div>
     <div class="chart-container">
       <LayerCake
-        padding={{ left: 20, right: 10, bottom: 20, top: 50 }}
+        padding={{ left: 10, right: 10, bottom: 20, top: 80 }}
         x="label"
         y="value"
         xScale={scaleBand().paddingInner([0.02]).round(true)}
@@ -120,13 +120,14 @@
 </div>
 
 <style>
-	#container {
+	.container {
     position: relative;
     padding-top: 40px;
     display: flex;
     flex-flow: row wrap;
-    width: 100%;
+    width: 100vw;
     height: auto;
+    box-shadow: none;
 	}
 	
   .owner-container, .stat-container {
@@ -168,15 +169,15 @@
    color: #333;
   }
 
-  @media (max-width: 762px) {
+  @media (max-width: 1030px) {
     .owner-container, .stat-container {
       position: absolute;
       display: inline;
-      top: 320px;
-      width: calc(50% - 10px);
+      top: 360px;
+      width: calc(50% - 18px);
       height: 100%;
-      margin: 0 10px;
       line-height: 1em;
+      margin: 0 10px;
     }
     .owner-container {
       left: 0;
@@ -187,15 +188,27 @@
     .chart-container  {
       position: absolute;
       top: 0;
-      height: 260px;
-      width: 400px;
+      height: 320px;
+      width: calc(100% - 60px);
       flex: 0 1 calc(100% - 10px);
     }
     .owner, .stat {
       padding: 2px 4px;
-      margin: 2px 4px;
       font-size: 12px;
+      line-height: 1.5em;
+      height: 44px;
     }
   }
+
+  @media (max-width: 420px) {
+    .chart-container  {
+      height: 260px;
+      width: 360px;
+    }
+    .owner-container, .stat-container { 
+      top: 320px;
+    }
+  }
+
 
 </style>

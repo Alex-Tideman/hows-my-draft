@@ -52,8 +52,8 @@
 		height: 100vh;
     min-height: 100vh;
     overflow: auto;
+    overscroll-behavior: contain;
 	}
-
 
   .card-container {
 		width: 100%;

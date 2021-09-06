@@ -13,7 +13,7 @@
 	}
 </script>
 
-<div id="container">
+<div class="container">
     <div class="owner-container">
       {#each $owners as item}
         <button class="owner hover-grow" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleClick(item)} >
@@ -54,7 +54,7 @@
 </div>
 
 <style>
-	#container {
+	.container {
     position: relative;
     padding-top: 40px;
     display: inline-flex;
@@ -62,6 +62,7 @@
     width: 100%;
     height: auto;
     overflow: auto;
+    box-shadow: none;
 	}
 	
   .owner-container {

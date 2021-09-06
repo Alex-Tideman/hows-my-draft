@@ -42,44 +42,41 @@
 	}
 
   .content {
-    position: relative;
-    height: 100%;
-    box-shadow: -5px 0 5px -7px #333;
+    margin: 0 1em 1.5em;
   }
 
   img {
     position: absolute;
-    bottom: 5px;
-    left: 0;
-    border-radius: 100%;
-    width: 80px;
+    bottom: 10px;
+    right: 10px;
+    width: 100px;
     height: auto;
   }
 
   .name {
-    padding: 10px 0 0 10px;
-    font-size: 16px;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: .75em;
   }
 
   .team {
-    padding: 0 0 0 10px;
     font-size: 12px;
   }
 
   .cost {
     position: absolute;
-    bottom: 5px;
+    bottom: 15px;
     border-radius: 5px;
     font-size: 24px;
     border-radius: 5px;
-    padding: 6px;
     width: 60px;
-    height: 26px;
+    height: 40px;
     text-align: center;
     letter-spacing: 0rem;
     background: white;
     box-shadow: -5px 0 5px -7px #333;
-    right: 10px;
+    left: 10px;
     color: #333;
     background: #00e047;
     font-weight: bold;
@@ -87,9 +84,9 @@
 
   .keeper {
     position: absolute;
-    bottom: 44px;
-    right: 18px;
-    font-size: 12px;
+    bottom: 52px;
+    left: 18px;
+    font-size: 10px;
     font-weight: bold;
   }
 
