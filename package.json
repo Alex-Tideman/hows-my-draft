@@ -33,6 +33,7 @@
   "dependencies": {
     "@fontsource/fira-mono": "^4.2.2",
     "@lukeed/uuid": "^2.0.0",
+    "cirrus-ui": "^0.6.2-patch-1",
     "cookie": "^0.4.1",
     "d3-scale": "^4.0.0",
     "layercake": "^5.0.0",

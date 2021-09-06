@@ -81,14 +81,14 @@
           All
         </button>
         {#each $owners as item}
-        <button class="owner" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleOwnerClick(item)} >
+        <button class="owner hover-grow" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleOwnerClick(item)} >
           {item.name}
         </button>
       {/each}
     </div>
     <div class="stat-container">
       {#each stats as item}
-        <button class="stat" style={activeStat.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleStatClick(item)}>
+        <button class="stat hover-grow" style={activeStat.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleStatClick(item)}>
           {item.name}
         </button>
       {/each}
@@ -151,41 +151,50 @@
    display: inline-block;
    padding: 2px 4px;
    margin: 0 2px;
-   border: 0.16em solid rgba(255,255,255,0);
    border-radius: 5px;
    box-sizing: border-box;
    text-decoration: none;
-   font-weight: 300;
-   text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+   font-weight: 700;
    text-align: center;
    transition: all 0.2s;
    margin: 2px;
    cursor: pointer;
    position: relative;
-  height: auto;
-  width: 100%;
-  background-color: var(--secondary-color);
-  box-shadow: -5px 0 5px -7px #333;
-  padding: 10px 0;
+   height: auto;
+   width: 100%;
+   border: 2px solid #333;
+   box-shadow: -5px 0 5px -7px #333;
+   background-color: var(--secondary-color);
+   color: #333;
   }
 
   @media (max-width: 762px) {
     .owner-container, .stat-container {
+      position: absolute;
+      display: inline;
+      top: 320px;
+      width: calc(50% - 10px);
       height: 100%;
-      margin: 0 5px;
-      flex: 0 1 calc(50% - 10px); /* <-- adjusting for margin */
+      margin: 0 10px;
+      line-height: 1em;
+    }
+    .owner-container {
+      left: 0;
+    }
+    .stat-container {
+      left: 50%;
     }
     .chart-container  {
-      flex: 0 1 calc(100% - 10px);
-      width: 400px;
+      position: absolute;
+      top: 0;
       height: 260px;
+      width: 400px;
+      flex: 0 1 calc(100% - 10px);
     }
-
-
     .owner, .stat {
       padding: 2px 4px;
       margin: 2px 4px;
-      font-size: 16px;
+      font-size: 12px;
     }
   }
 

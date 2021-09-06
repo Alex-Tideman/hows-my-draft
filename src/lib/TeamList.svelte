@@ -16,7 +16,7 @@
 <div id="container">
     <div class="owner-container">
       {#each $owners as item}
-        <button class="owner" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleClick(item)} >
+        <button class="owner hover-grow" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleClick(item)} >
           {item.name}
         </button>
       {/each}
@@ -66,7 +66,7 @@
 	
   .owner-container {
     height: 100%;
-    margin: 0 5px;
+    margin: 0 10px;
     width:  220px;
   }
   .qb-container, .rb-container, .wr-container, .te-container, .dk-container {
@@ -83,12 +83,17 @@
    border-radius: 5px;
    box-sizing: border-box;
    text-decoration: none;
-   font-weight: 300;
+   font-weight: 700;
    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
    text-align: center;
    transition: all 0.2s;
    margin: 2px;
    cursor: pointer;
+   border: 3px solid #333;
+   box-shadow: -5px 0 5px -7px #333;
+   padding: 10px 0;
+   background-color: var(--secondary-color);
+   color: #333;
   }
 
   .owner, .position-title {
@@ -113,7 +118,8 @@
 
   @media (max-width: 1200px) {
     .owner-container {
-      flex: 0 2 calc(100% - 10px); /* <-- adjusting for margin */
+      flex: 0 1 calc(100% - 10px); /* <-- adjusting for margin */
+      margin: 0 30px;
     }
     .qb-container, .rb-container, .wr-container, .te-container, .dk-container {
 		height: 100%;
@@ -126,6 +132,12 @@
     .qb-container, .rb-container, .wr-container, .te-container, .dk-container {
       flex: 0 1 calc(100% - 10px); /* <-- adjusting for margin */
     }
+    .position-title {
+    text-align: left;
+    margin: 5px 0;
+    padding-left: 20px;
+    font-weight: 700;
+  }
   }
 
 
