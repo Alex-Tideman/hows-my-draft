@@ -95,7 +95,7 @@
     </div>
     <div class="chart-container">
       <LayerCake
-        padding={{ left: 10, right: 10, bottom: 20, top: 80 }}
+        padding={{ left: 20, right: 10, bottom: 20, top: 80 }}
         x="label"
         y="value"
         xScale={scaleBand().paddingInner([0.02]).round(true)}
@@ -125,7 +125,6 @@
     padding-top: 40px;
     display: flex;
     flex-flow: row wrap;
-    width: 100vw;
     height: auto;
     box-shadow: none;
 	}
@@ -149,7 +148,6 @@
   }
 
   .owner, .stat {
-   display: inline-block;
    padding: 2px 4px;
    margin: 0 2px;
    border-radius: 5px;
@@ -177,7 +175,6 @@
       width: calc(50% - 18px);
       height: 100%;
       line-height: 1em;
-      margin: 0 10px;
     }
     .owner-container {
       left: 0;
@@ -189,7 +186,7 @@
       position: absolute;
       top: 0;
       height: 320px;
-      width: calc(100% - 60px);
+      width: 360px;
       flex: 0 1 calc(100% - 10px);
     }
     .owner, .stat {
@@ -197,16 +194,18 @@
       font-size: 12px;
       line-height: 1.5em;
       height: 44px;
+      width: 100%;
     }
   }
 
   @media (max-width: 420px) {
     .chart-container  {
-      height: 260px;
-      width: 360px;
+      height: 220px;
+      width: 320px;
     }
     .owner-container, .stat-container { 
-      top: 320px;
+      top: 280px;
+      width: calc(50% - 4px);
     }
   }
 
