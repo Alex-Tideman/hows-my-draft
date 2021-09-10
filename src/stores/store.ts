@@ -1,28 +1,12 @@
 import { readable, writable } from 'svelte/store';
 import lodash from 'lodash';
+import { members, draft } from './draftResults';
+import { week1 } from './week1Results';
+
 const { groupBy, sortBy } = lodash;
-import { 
-	keepers, round1, round2, round3, round4,
-	round5, round6, round7, round8, round9,
-	round10, round11, round12, round13, round14,
-} from './draftResults';
 
 export const yScroll = writable(0);
 
-const members = [
-	{ name: "Boom or Bimbust", id: 1 },
-	{ name: "Steve's Jeans", id: 2 },
-	{ name: "Real Steve", id: 3 },
-	{ name: "David's Team", id: 4 },
-	{ name: "The Dirty Wash Boyz", id: 5 },
-	{ name: "Papa Bearskin Rug", id: 6 },
-	{ name: "Shawzy", id: 7 },
-	{ name: "CeeDee's TDs", id: 8 },
-	{ name: "TheItalianStallions", id: 9 },
-	{ name: "flat TURF rnd GURTH", id: 10 }
-]
-
-// 1000 players
 const itemStore = (initialValue) => {
   const { subscribe, set, update } = writable(initialValue);
 
@@ -83,12 +67,10 @@ const itemStore = (initialValue) => {
   }
 }
 
-const draft = [
-	...keepers, ...round1, ...round2, ...round3, ...round4,
-	...round5, ...round6, ...round7, ...round8, ...round9,
-	...round10, ...round11, ...round12, ...round13, ...round14
-]
 export const items = itemStore(draft);
 export const owners = readable(members, set => {
+	set(members);
+});
+export const results = readable(week1, set => {
 	set(members);
 });
