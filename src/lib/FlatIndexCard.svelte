@@ -4,6 +4,7 @@
   const dispatch = createEventDispatcher();
 
   export let item;
+  export let tag;
 
   function sendOwner() {
     dispatch('message', {
@@ -12,9 +13,27 @@
   }
 </script>
 
-<div 
+<div class="tile p-1 m-1 bg-gray-100 u-round" on:click={sendOwner}>
+  <div class="tile__icon">
+    <figure class="avatar">
+    {#if item.img}
+        <img src={item.img} alt={item.name} />
+    {/if}
+    </figure>
+  </div>
+  <div class="tile__container m-0">
+      <div class="tag tag--info {tag}">{item.position}</div>
+      <p class="tile__title m-0">{item.name}</p>
+      <p class="tile__subtitle m-0">{item.team}</p>
+  </div>
+  <div class="tile__buttons m-0">
+    <button class="btn-success uppercase cost-btn">${item.cost}</button>
+  </div>
+</div>
+
+<!-- <div 
   class="card" 
-  on:click={sendOwner}>
+  >
     <div class="content">
       <div class="name">{item.name}</div>
       {#if item.team}
@@ -30,64 +49,26 @@
         <div class="keeper">KEEPER</div>
       {/if}
     </div>
-</div>
+</div> -->
 
 <style>
-	.card {
-    position: relative;
-    height: 120px;
+
+  .tile {
     width: 100%;
-    margin: 5px 0 10px 0;
-    background-color: var(--tertiary-color);
-	}
-
-  .content {
-    margin: 0 1em 1.5em;
+  }
+  .tile__icon {
   }
 
-  img {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+  .avatar {
+    height: 4rem;
+    width: 4rem;
+    background-color: transparent;
+    padding-top: 20px;
+  }
+
+  .cost-btn {
     width: 100px;
-    height: auto;
+    height: 90%;
+    font-size: 2em;
   }
-
-  .name {
-    margin-top: 15px;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: .75em;
-  }
-
-  .team {
-    font-size: 12px;
-  }
-
-  .cost {
-    position: absolute;
-    bottom: 15px;
-    border-radius: 5px;
-    font-size: 24px;
-    border-radius: 5px;
-    width: 60px;
-    height: 40px;
-    text-align: center;
-    letter-spacing: 0rem;
-    background: white;
-    box-shadow: -5px 0 5px -7px #333;
-    left: 10px;
-    color: #333;
-    background: #00e047;
-    font-weight: bold;
-  }
-
-  .keeper {
-    position: absolute;
-    bottom: 52px;
-    left: 18px;
-    font-size: 10px;
-    font-weight: bold;
-  }
-
 </style>
