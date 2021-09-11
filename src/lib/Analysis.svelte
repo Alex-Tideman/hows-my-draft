@@ -1,12 +1,13 @@
 <script>
   import { LayerCake, Svg, Html, Canvas } from 'layercake';
   import { scaleBand } from 'd3-scale';
-
-  import { owners, items } from '../stores/store';
-
+  import { items } from '../stores/store';
   import Bar from './components/Bar.svelte';
   import AxisX from './components/AxisX.svelte';
   import AxisY from './components/AxisY.svelte';
+
+  export let activeOwner;
+  export let activeStatId = 1;
 
   const stats = [
     { id: 1, name: "Dollars per Round" },
@@ -58,7 +59,6 @@
     }
   }
 
-  $: activeOwner = { id: 0 };
   $: activeStat = stats[0];
 
   $: data = getStatData(activeStat.id, activeOwner.id);
@@ -66,57 +66,31 @@
   $: xDomain = getxDomain(activeStat.id, activeOwner.id, data);
   $: legend = getLegend(activeStat.id, activeOwner.id);
 
-	function handleOwnerClick(owner) {
-		activeOwner = owner;
-	}
-
-  function handleStatClick(stat) {
-		activeStat = stat;
-	}
 </script>
 
-<div class="container">
-    <div class="owner-container">
-        <button class="owner" style={activeOwner.id === 0 ? "background-color: #00e047; color: #333" : ""} on:click={() => handleOwnerClick({ id: 0 })} >
-          Average
-        </button>
-        {#each $owners as item}
-        <button class="owner hover-grow" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleOwnerClick(item)} >
-          {item.name}
-        </button>
-      {/each}
-    </div>
-    <div class="stat-container">
-      {#each stats as item}
-        <button class="stat hover-grow" style={activeStat.id === item.id ? "background-color: #00e047; color: #333" : ""} on:click={() => handleStatClick(item)}>
-          {item.name}
-        </button>
-      {/each}
-    </div>
-    <div class="chart-container">
-      <LayerCake
-        padding={{ left: 20, right: 10, bottom: 20, top: 80 }}
-        x="label"
-        y="value"
-        xScale={scaleBand().paddingInner([0.02]).round(true)}
-        yDomain={yDomain}
-        xDomain={xDomain}  
-        data={data}
-      >
-        <Svg>
-          <AxisX rotate={activeOwner.id === 0 && activeStat.id === 3} />
-          <AxisY
-            ticks={4}
-          />
-          <Bar
-          fill={'#4EBCD5'}
-          stroke={'#333'}
-          strokeWidth={3}  
-          />
-        </Svg>
-      </LayerCake>  
-      <div class="legend">{legend}</div>
-    </div>
+<div class="chart-container">
+  <LayerCake
+    padding={{ left: 20, right: 10, bottom: 20, top: 80 }}
+    x="label"
+    y="value"
+    xScale={scaleBand().paddingInner([0.02]).round(true)}
+    yDomain={yDomain}
+    xDomain={xDomain}  
+    data={data}
+  >
+    <Svg>
+      <AxisX rotate={activeOwner.id === 0 && activeStat.id === 3} />
+      <AxisY
+        ticks={4}
+      />
+      <Bar
+      fill={'#4EBCD5'}
+      stroke={'#333'}
+      strokeWidth={3}  
+      />
+    </Svg>
+  </LayerCake>  
+  <div class="legend">{legend}</div>
 </div>
 
 <style>
