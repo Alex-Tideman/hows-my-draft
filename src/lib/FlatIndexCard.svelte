@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class="tile p-1 m-1 bg-gray-100 u-round" on:click={sendOwner}>
+<div class="tile p-1 m-1 bg-gray-300 u-round u-items-center" on:click={sendOwner}>
   <div class="tile__icon">
     <figure class="avatar">
     {#if item.img}
@@ -27,6 +27,7 @@
       <p class="tile__subtitle m-0">{item.team}</p>
   </div>
   <div class="tile__buttons m-0">
+    <button class="btn-warning uppercase">34.43 pts</button>
     <button class="btn-success uppercase cost-btn">${item.cost}</button>
   </div>
 </div>
@@ -60,15 +61,14 @@
   }
 
   .avatar {
-    height: 4rem;
-    width: 4rem;
+    height: 6rem;
+    width: 6rem;
     background-color: transparent;
     padding-top: 20px;
   }
 
   .cost-btn {
-    width: 100px;
-    height: 90%;
-    font-size: 2em;
+    width: 80px;
+    font-weight: 700;
   }
 </style>
