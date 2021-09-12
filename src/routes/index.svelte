@@ -14,11 +14,11 @@
 	export const prerender = true;
 </script>
 <script lang="ts">
-	import Analysis from '$lib/Analysis.svelte';
+	import Main from '$lib/Main.svelte';
 </script>
 
 <svelte:head>
 	<title>How's My Draft</title>
 </svelte:head>
 
-<Analysis slot="analyze" />
+<Main slot="main" />

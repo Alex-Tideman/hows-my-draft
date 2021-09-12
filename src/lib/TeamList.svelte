@@ -1,29 +1,16 @@
 <script>
   import { owners, items } from '../stores/store';
   import FlatIndexCard from './FlatIndexCard.svelte';
+  import lodash from 'lodash';
+  const { groupBy, orderBy } = lodash;
 
-  $: activeOwner = $owners[0];
-  $: qbs = items.getPositionSet('QB', activeOwner.id);
-  $: rbs = items.getPositionSet('RB', activeOwner.id);
-  $: wrs = items.getPositionSet('WR', activeOwner.id);
-  $: tes = items.getPositionSet('TE', activeOwner.id);
-  $: dks = items.getPositionSets(['DEF', 'K'], activeOwner.id);
+  export let activeOwner = $owners[0];
+  $: list = items.getOwnerSet(activeOwner.id);
+  $: sortedItems = orderBy(list, 'cost', 'desc');
 </script>
 
 <section>
-  {#each qbs as item}
+  {#each sortedItems as item}
     <FlatIndexCard {item} />
-  {/each}
-  {#each rbs as item}
-    <FlatIndexCard {item} tag="bg-teal-600" />
-  {/each}
-  {#each wrs as item}
-    <FlatIndexCard {item} tag="bg-indigo-500" />
-  {/each}
-  {#each tes as item}
-    <FlatIndexCard {item} tag="bg-orange-400" />
-  {/each}
-  {#each dks as item}
-    <FlatIndexCard {item} tag="bg-gray-800" />
   {/each}
 </section>

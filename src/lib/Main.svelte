@@ -2,8 +2,9 @@
   import { owners, items } from '../stores/store';
   import Analysis from './Analysis.svelte';
   import TeamList from './TeamList.svelte';
+  import Results from './Results.svelte';
 
-  let tab = 'team';
+  let tab = 'draft';
   $: activeOwner = $owners[0];
 
   function handleClick(owner) {
@@ -12,29 +13,32 @@
 </script>
 
 <div class="container">
-
-  <div class="grid grid-gap-3">
-    <div class="grid-c-3">
-      {#each $owners as item}
-        <button class="owner-btn hover-grow" style={activeOwner.id === item.id ? "background-color: #00e047; color: #333;" : ""} on:click={() => handleClick(item)} >
-          {item.name}
-        </button>
-      {/each}
+  <div class="row">
+    <div class="col-md-3 col-xs-12">
+      <ul class="menu">
+        {#each $owners as item}
+            <li class="menu-item owner-item" style={activeOwner.id === item.id ? "background-color: #00e047;" : ""} on:click={() => handleClick(item)} >
+              {item.name}
+            </li>
+        {/each}  
+      </ul>
     </div>
-    <div class="grid-c-9 text-left">
+    <div class="col-md-9 col-xs-12 text-left">
       <div class="tab-container">
           <ul>
-              <li class={tab === 'team' ? 'selected' : ''} on:click={() => tab = 'team'}><div class="tab-item-content">Team</div></li>
-              <li class={tab === 'positions' ? 'selected' : ''} on:click={() => tab = 'positions'}><div class="tab-item-content">Positions</div></li>
               <li class={tab === 'draft' ? 'selected' : ''} on:click={() => tab = 'draft'}><div class="tab-item-content">Draft</div></li>
+              <li class={tab === 'analysis' ? 'selected' : ''} on:click={() => tab = 'analysis'}><div class="tab-item-content">Analysis</div></li>
+              <li class={tab === 'forecast' ? 'selected' : ''} on:click={() => tab = 'forecast'}><div class="tab-item-content">Forecast</div></li>
           </ul>
       </div>    
-      {#if tab === 'team'}
-        <TeamList />
-      {:else if tab === 'positions'}
-        <Analysis {activeOwner} activeStatId={1} />
-      {:else if tab === 'draft'}
-        <Analysis {activeOwner} />
+      {#if tab === 'draft'}
+        <TeamList {activeOwner} />
+      {:else if tab === 'analysis'}
+        <Analysis {activeOwner} statId={1} fill="#f03d4d" />
+        <Analysis {activeOwner} statId={2} fill="#0dd157" />
+        <Analysis {activeOwner} statId={3} fill="#2972fa" />
+      {:else if tab === 'forecast'}
+        <Results {activeOwner} />
       {/if}
     </div>
   </div>
@@ -47,10 +51,29 @@
     width: 100%;
 	}
 	
-.owner-btn {
+.owner-item {
   width: 100%;
-  background-color: #2972fa;
-  color: white;
+  padding: 10px 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  line-height: 1em;
 }
+
+@media (max-width: 768px) {
+  .menu {
+    height: 104px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: sticky;
+    top: 50px;
+    border: 1px solid #333;
+  }
+  .owner-item {
+    height: 36px;
+    width: 100%;
+    line-height: 1em;
+  }
+}
+
 
 </style>

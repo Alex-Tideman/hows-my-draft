@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Header from '$lib/header/Header.svelte';
+	import TitleHeader from '$lib/header/TitleHeader.svelte';
 	import '../app.css';
 	import 'cirrus-ui'; 
 </script>
 
-<Header />
+<TitleHeader />
 
 <main>
 	<slot />
@@ -22,6 +22,7 @@
 		padding: 1rem;
 		width: 100%;
 		/* max-width: 1024px; */
+		overflow-x: hidden;
 		margin: 0 auto;
 		box-sizing: border-box;
 	}

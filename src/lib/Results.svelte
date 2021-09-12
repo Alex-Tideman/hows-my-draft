@@ -2,7 +2,7 @@
   import { LayerCake, Svg, Html, Canvas } from 'layercake';
   import { scaleBand } from 'd3-scale';
   import { items } from '../stores/store';
-  import Bar from './components/Bar.svelte';
+  import Line from './components/Line.svelte';
   import AxisX from './components/AxisX.svelte';
   import AxisY from './components/AxisY.svelte';
 
@@ -60,32 +60,20 @@
     }
   }
 
-  function getTitle(id, ownerId) {
-    switch (id) {
-      case 1:
-        return 'Draft Dollars per Round';
-      case 2:
-        return 'Draft Dollars per Position';
-      case 3:
-        return 'Draft Dollars per Team';
-    }
-  }
-
   $: activeStat = stats.find(s => s.id === statId) ?? stats[0];
 
   $: data = getStatData(activeStat.id, activeOwner.id);
   $: yDomain = getyDomain(activeStat.id, activeOwner.id);
   $: xDomain = getxDomain(activeStat.id, activeOwner.id, data);
   $: legend = getLegend(activeStat.id, activeOwner.id);
-  $: title = getTitle(activeStat.id, activeOwner.id);
+  let x;
+  console.log("X: ", x)
 </script>
 
-<section>
-
+<svelte:window bind:innerWidth={x}/>
 <div class="chart-container">
-  <div class="title">{title}</div>
   <LayerCake
-    padding={{ left: 20, right: 10, bottom: 10, top: 10 }}
+    padding={{ left: 20, right: 10, bottom: 20, top: 80 }}
     x="label"
     y="value"
     xScale={scaleBand().paddingInner([0.02]).round(true)}
@@ -98,7 +86,7 @@
       <AxisY
         ticks={4}
       />
-      <Bar
+      <Line
         fill={fill}
         stroke={'#333'}
         strokeWidth={3}  
@@ -107,40 +95,27 @@
   </LayerCake>  
   <div class="legend">{legend}</div>
 </div>
-</section>
-<style>
 
-  section {
-    overflow: hidden;
-    padding: 20px 0;
-  }
+<style>
   .chart-container {
     width: 800px;
-    height: 480px;
-    position: relative;
-    margin-left: 0px;
+    height: 400px;
+    margin-left: 20px;
     flex: 0 1 calc(50% - 10px); /* <-- adjusting for margin */
     text-align: center;
-    padding-bottom: 80px;
   }
 
   .legend {
-    font-weight: 900;
-    font-size: 1.20em;
-    text-align: center;
+    margin: 20px 0 40px 0;
   }
 
   @media (max-width: 1030px) {
-    .chart-container  {
-      height: 420px;
-      width: 700px;
-    }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 420px) {
     .chart-container  {
-      height: 204px;
-      width: 340px;
+      height: 220px;
+      width: 320px;
     }
   }
 

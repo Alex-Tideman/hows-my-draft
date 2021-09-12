@@ -1,5 +1,6 @@
 
 export const members = [
+  { name: 'All', id: 0 }, 
 	{ name: "Boom or Bimbust", id: 1 },
 	{ name: "Steve's Jeans", id: 2 },
 	{ name: "Real Steve", id: 3 },
@@ -213,4 +214,4 @@ export const draft = [
 	...keepers, ...round1, ...round2, ...round3, ...round4,
 	...round5, ...round6, ...round7, ...round8, ...round9,
 	...round10, ...round11, ...round12, ...round13, ...round14
-]
+].filter(d => Boolean(d.name))
