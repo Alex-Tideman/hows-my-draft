@@ -61,12 +61,14 @@
 
 @media (max-width: 768px) {
   .menu {
-    height: 104px;
+    height: 120px;
     overflow-y: auto;
     overflow-x: hidden;
     position: sticky;
     top: 50px;
-    border: 1px solid #333;
+    box-shadow: inset 0px 0px 3px 0 #333;
+    overscroll-behavior: contain;
+
   }
   .owner-item {
     height: 36px;
