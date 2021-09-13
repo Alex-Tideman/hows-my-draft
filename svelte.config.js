@@ -10,6 +10,18 @@ const config = {
 	kit: {
 		adapter: adapter(), // currently the adapter does not take any options
 		target: '#app', // hydrate the <div id="app"> element in src/app.html
+		vite: () => ({
+			server: {
+				proxy: {
+					'/api': {
+						target: 'https://agile-mountain-18396.herokuapp.com',
+						changeOrigin: true,
+						secure: false,      
+						ws: true, 
+					}
+				}
+			}
+		})
 	}
 };
 

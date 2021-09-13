@@ -4,15 +4,29 @@
   import TeamList from './TeamList.svelte';
   import Results from './Results.svelte';
 
+  const AUTH_SERVER_URL = 'https://agile-mountain-18396.herokuapp.com/auth/yahoo'
   let tab = 'draft';
   $: activeOwner = $owners[0];
 
   function handleClick(owner) {
 		activeOwner = owner;
 	}
+
+  async function handleLogin() {
+    await fetch(AUTH_SERVER_URL, {
+      method: 'get',
+      mode: 'cors', // no-cors, *cors, same-origin,
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *client
+    });
+  }
 </script>
 
 <div class="container">
+  <button on:click={handleLogin}>
+      Yahoo Login
+  </button>
   <div class="row">
     <div class="col-md-3 col-xs-12">
       <ul class="menu">
