@@ -4,28 +4,15 @@
   import TeamList from './TeamList.svelte';
   import Results from './Results.svelte';
 
-  const AUTH_SERVER_URL = 'https://agile-mountain-18396.herokuapp.com/auth/yahoo'
-  // const AUTH_SERVER_URL = 'http://localhost:8000/auth/yahoo/callback'
-
   let tab = 'draft';
   $: activeOwner = $owners[0];
 
   function handleClick(owner) {
 		activeOwner = owner;
 	}
-
-  async function handleLogin() {
-    try {
-      await fetch(AUTH_SERVER_URL);
-    } catch (e) {
-    }
-  }
 </script>
 
 <div class="container">
-  <button on:click={handleLogin}>
-      Yahoo Login
-  </button>
   <div class="row">
     <div class="col-md-3 col-xs-12">
       <ul class="menu">
