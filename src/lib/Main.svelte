@@ -5,6 +5,8 @@
   import Results from './Results.svelte';
 
   const AUTH_SERVER_URL = 'https://agile-mountain-18396.herokuapp.com/auth/yahoo'
+  // const AUTH_SERVER_URL = 'http://localhost:8000/auth/yahoo/callback'
+
   let tab = 'draft';
   $: activeOwner = $owners[0];
 
@@ -13,12 +15,10 @@
 	}
 
   async function handleLogin() {
-    // try {
-    //   const res = await fetch(AUTH_SERVER_URL);
-    //   debugger
-    // } catch (e) {
-    //   debugger
-    // }
+    try {
+      await fetch(AUTH_SERVER_URL);
+    } catch (e) {
+    }
   }
 </script>
 
