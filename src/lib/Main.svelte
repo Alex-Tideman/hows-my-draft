@@ -13,13 +13,12 @@
 	}
 
   async function handleLogin() {
-    await fetch(AUTH_SERVER_URL, {
-      method: 'get',
-      mode: 'cors', // no-cors, *cors, same-origin,
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *client
-    });
+    // try {
+    //   const res = await fetch(AUTH_SERVER_URL);
+    //   debugger
+    // } catch (e) {
+    //   debugger
+    // }
   }
 </script>
 
