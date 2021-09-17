@@ -9,6 +9,8 @@
     'DEF': 'bg-gray-800',
     'K': 'bg-gray-800',
   }
+
+  const placeholderImg = 'https://s.yimg.com/cv/apiv2/default/20180730/silhouette@x300.png'
 </script>
 
 <div class="tile p-1 m-1 bg-gray-100 u-round u-items-center">
@@ -17,9 +19,7 @@
     <p class="m-0 uppercase keeper">Keeper</p>
   {/if}
     <figure class="avatar">
-    {#if item.img}
-        <img src={item.img} alt={item.name} />
-    {/if}
+      <img src={item.img ? item.img : placeholderImg} alt={item.name} />
     </figure>
   </div>
   <div class="tile__container m-0">

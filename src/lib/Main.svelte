@@ -4,7 +4,7 @@
   import TeamList from './TeamList.svelte';
   import Results from './Results.svelte';
 
-  let tab = 'draft';
+  let tab = 'cost';
   $: activeOwner = $owners[0];
 
   function handleClick(owner) {
@@ -26,18 +26,18 @@
     <div class="col-md-9 col-xs-12 text-left">
       <div class="tab-container">
           <ul>
-              <li class={tab === 'draft' ? 'selected' : ''} on:click={() => tab = 'draft'}><div class="tab-item-content">Draft</div></li>
-              <li class={tab === 'analysis' ? 'selected' : ''} on:click={() => tab = 'analysis'}><div class="tab-item-content">Analysis</div></li>
-              <li class={tab === 'forecast' ? 'selected' : ''} on:click={() => tab = 'forecast'}><div class="tab-item-content">Forecast</div></li>
+              <li class={tab === 'cost' ? 'selected' : ''} on:click={() => tab = 'cost'}><div class="tab-item-content">Cost</div></li>
+              <li class={tab === 'strategy' ? 'selected' : ''} on:click={() => tab = 'strategy'}><div class="tab-item-content">Strategy</div></li>
+              <li class={tab === 'performance' ? 'selected' : ''} on:click={() => tab = 'performance'}><div class="tab-item-content">Performance</div></li>
           </ul>
       </div>    
-      {#if tab === 'draft'}
+      {#if tab === 'cost'}
         <TeamList {activeOwner} />
-      {:else if tab === 'analysis'}
+      {:else if tab === 'strategy'}
         <Analysis {activeOwner} statId={1} fill="#f03d4d" />
         <Analysis {activeOwner} statId={2} fill="#0dd157" />
         <Analysis {activeOwner} statId={3} fill="#2972fa" />
-      {:else if tab === 'forecast'}
+      {:else if tab === 'performance'}
         <Results {activeOwner} />
       {/if}
     </div>
@@ -59,9 +59,14 @@
   line-height: 1em;
 }
 
+.tab-item-content {
+  font-size: 1.25em;
+  font-weight: 900;
+}
+
 @media (max-width: 768px) {
   .menu {
-    height: 120px;
+    height: 160px;
     overflow-y: auto;
     overflow-x: hidden;
     position: sticky;
