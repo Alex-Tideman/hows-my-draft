@@ -3,6 +3,7 @@
   import Analysis from './Analysis.svelte';
   import TeamList from './TeamList.svelte';
   import Results from './Results.svelte';
+  import PayWall from './PayWall.svelte';
 
   let tab = 'cost';
   $: activeOwner = $owners[0];
@@ -10,6 +11,10 @@
   function handleClick(owner) {
 		activeOwner = owner;
 	}
+
+  function handlePasswordConfirm(password) {
+    console.log("PASSWORD: ", password)
+  }
 </script>
 
 <div class="container">
@@ -38,7 +43,7 @@
         <Analysis {activeOwner} statId={2} fill="#0dd157" />
         <Analysis {activeOwner} statId={3} fill="#2972fa" />
       {:else if tab === 'performance'}
-        <Results {activeOwner} />
+        <PayWall onClick={handlePasswordConfirm} />
       {/if}
     </div>
   </div>

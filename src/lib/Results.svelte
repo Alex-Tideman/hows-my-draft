@@ -67,7 +67,6 @@
   $: xDomain = getxDomain(activeStat.id, activeOwner.id, data);
   $: legend = getLegend(activeStat.id, activeOwner.id);
   let x;
-  console.log("X: ", x)
 </script>
 
 <svelte:window bind:innerWidth={x}/>
