@@ -1,6 +1,5 @@
 
 export const members = [
-  { name: 'All', id: 0 }, 
 	{ name: "Boom or Bimbust", id: 1 },
 	{ name: "Steve's Jeans", id: 2 },
 	{ name: "Real Steve", id: 3 },
@@ -10,7 +9,8 @@ export const members = [
 	{ name: "Shawzy", id: 7 },
 	{ name: "CeeDee's TDs", id: 8 },
 	{ name: "TheItalianStallions", id: 9 },
-	{ name: "flat TURF rnd GURTH", id: 10 }
+	{ name: "flat TURF rnd GURTH", id: 10 },
+  { name: 'All', id: 0 },
 ]
 
 export const keepers = [

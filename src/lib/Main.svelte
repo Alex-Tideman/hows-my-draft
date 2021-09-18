@@ -1,4 +1,6 @@
 <script>
+  	import { onMount } from 'svelte';
+    import { browser } from '$app/env';
   import { owners, items } from '../stores/store';
   import Analysis from './Analysis.svelte';
   import TeamList from './TeamList.svelte';
@@ -6,6 +8,11 @@
   import PayWall from './PayWall.svelte';
 
   let tab = 'cost';
+  let loggedIn = false;
+  onMount(() => {
+    loggedIn = localStorage.getItem(':howsmydraft:league:password') ? true : false;
+  });
+
   $: activeOwner = $owners[0];
 
   function handleClick(owner) {
@@ -13,7 +20,10 @@
 	}
 
   function handlePasswordConfirm(password) {
-    console.log("PASSWORD: ", password)
+    if (password === 'tinahungry') {
+      loggedIn = true;
+      localStorage.setItem(':howsmydraft:league:password', JSON.stringify(password))
+    }
   }
 </script>
 
@@ -43,7 +53,11 @@
         <Analysis {activeOwner} statId={2} fill="#0dd157" />
         <Analysis {activeOwner} statId={3} fill="#2972fa" />
       {:else if tab === 'performance'}
-        <PayWall onClick={handlePasswordConfirm} />
+        {#if loggedIn}
+          <Results {activeOwner} />
+        {:else}
+          <PayWall onClick={handlePasswordConfirm} />
+        {/if}
       {/if}
     </div>
   </div>

@@ -2,10 +2,10 @@
   export let item;
 
   const positionTag = {
-    'QB': 'bg-blue-600',
-    'RB': 'bg-teal-500',
+    'QB': 'bg-blue-400',
+    'RB': 'bg-teal-300',
     'WR': 'bg-indigo-700',
-    'TE': 'bg-yellow-300',
+    'TE': 'bg-orange-300',
     'DEF': 'bg-gray-800',
     'K': 'bg-gray-800',
   }
@@ -13,19 +13,20 @@
   const placeholderImg = 'https://s.yimg.com/cv/apiv2/default/20180730/silhouette@x300.png'
 </script>
 
-<div class="tile p-1 m-1 bg-gray-100 u-round u-items-center">
+<div class="tile p-1 m-1 {item.team ? 'bg-gray-100' : 'bg-red-600'}  u-round u-items-center">
   <div class="tile__icon">
     {#if item.round === 0}
     <p class="m-0 uppercase keeper">Keeper</p>
-  {/if}
+    {/if}
     <figure class="avatar">
       <img src={item.img ? item.img : placeholderImg} alt={item.name} />
     </figure>
   </div>
   <div class="tile__container m-0">
-      <div class="tag tag--info {positionTag[item.position]}">{item.position}</div>
       <p class="tile__title m-0">{item.name}</p>
-      <p class="tile__subtitle m-0">{item.team}</p>
+      {#if item.position && item.team}
+        <div class="tag tag--info {positionTag[item.position]}">{item.position}</div><span class="subtitle">{item.team}</span>
+      {/if}
   </div>
   <div class="tile__buttons m-0">
     <button class="btn-success uppercase cost-btn">${item.cost}</button>
@@ -37,6 +38,16 @@
   .tile {
     width: 100%;
     position: relative;
+  }
+
+  .tile__title {
+    font-size: 1.15em;
+  }
+
+  .subtitle {
+    font-size: .9em;
+    padding: 2px 10px;
+    color: #333;
   }
 
   .avatar {

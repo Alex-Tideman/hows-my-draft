@@ -24,7 +24,10 @@ const itemStore = (initialValue) => {
 		},
 		getOwnerSet: (id: number) => {
 			if (id) {
-				return initialValue.filter(i => i.owner_id === id);
+				const players = initialValue.filter(i => i.owner_id === id);
+				const remaining = 200 - players.reduce((sum, p) => sum += p.cost, 0);
+				const final = [...players, { name: "Remaining", team: "", position: "", cost: remaining }]
+				return final;
 			}
 			return initialValue;
 		},

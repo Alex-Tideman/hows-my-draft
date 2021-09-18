@@ -1,4 +1,7 @@
 <script>
+    import Icon from 'svelte-awesome';
+    import { times, usd, comment, codeFork, camera, ban } from 'svelte-awesome/icons';
+
   export let onClick;
   let password = '';
 
@@ -10,30 +13,32 @@
   <div class="hero">
     <div class="hero-body">
         <div class="content">
-            <h2 class="title white">Oh you want the goods?</h2>
-            <a class="btn btn-info" href="#login-modal">League Login</a>
-            <h5 class="subtitle text-gray-300">@ATide - $20</h5>
+            <h2 class="title white">You want the goods?</h2>
+            <a class="btn btn-info btn-large" href="#login-modal">League Login</a>
         </div>
     </div>
   </div>
   <div class="modal modal-animated--zoom-in" id="login-modal">
     <a href="#loginModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
     <div class="modal-content" role="document">
-        <div class="modal-header"><a href="#components" class="u-pull-right" aria-label="Close"><span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></a>
+        <div class="modal-header"><a href="#" class="" aria-label="Close"><span class="icon far-right"><Icon data={times}/></span></a>
             <div class="modal-title">Login</div>
         </div>
         <div class="modal-body">
             <div class="input-control">
               <input type="text" class="input-contains-icon" bind:value={password} placeholder="Enter password"><span class="icon" />
             </div>
+            <small class="tagline">Want the password?</small>
+            <div class="tag tag--success">$20</div>
+            <small class="venmo">@ATide</small>
         </div>
         <div class="modal-footer">
             <div class="form-section u-text-right">
-                <a href="#components">
+                <a href="#">
                     <button class="btn btn-small u-inline-block">Cancel</button>
                 </a>
-                <a href="#components">
-                    <button class="btn-info btn-small u-inline-block" on:click={handleConfirm}>Confirm</button>
+                <a href="#">
+                    <button class="btn-info btn-small u-inline-block" on:click={handleConfirm}>Enter</button>
                 </a>
             </div>
         </div>
@@ -49,7 +54,26 @@
 
   .hero {
     background-color: #f03d4d;
-    height: 350px;
+    height: 400px;
+  }
+
+  .far-right {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .content.title {
+    font-size: 1.25em;
+  }
+
+  .tagline {
+    font-size: .65em;
+  }
+
+  .venmo {
+    font-size: .85em;
+    font-weight: 900;
   }
 
 </style>

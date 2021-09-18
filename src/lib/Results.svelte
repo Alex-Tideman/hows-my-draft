@@ -75,6 +75,7 @@
     padding={{ left: 20, right: 10, bottom: 20, top: 80 }}
     x="label"
     y="value"
+    height={400}
     xScale={scaleBand().paddingInner([0.02]).round(true)}
     yDomain={yDomain}
     xDomain={xDomain}  
