@@ -1,16 +1,16 @@
 
 export const members = [
-	{ name: "Boom or Bimbust", id: 1 },
-	{ name: "Steve's Jeans", id: 2 },
-	{ name: "Real Steve", id: 3 },
-	{ name: "David's Team", id: 4 },
-	{ name: "The Dirty Wash Boyz", id: 5 },
-	{ name: "Papa Bearskin Rug", id: 6 },
-	{ name: "Shawzy", id: 7 },
-	{ name: "CeeDee's TDs", id: 8 },
-	{ name: "TheItalianStallions", id: 9 },
-	{ name: "flat TURF rnd GURTH", id: 10 },
-  { name: 'All', id: 0 },
+	{ name: "Brimbry", team: "Boom or Bimbust", id: 1 },
+	{ name: "David", team: "Steve's Jeans", id: 2 },
+	{ name: "Steve-Dave", team: "Real Steve", id: 3 },
+	{ name: "David", team: "David's Team", id: 4 },
+	{ name: "Joel Gitar", team: "The Dirty Wash Boyz", id: 5 },
+	{ name: "Alex", team: "Papa Bearskin Rug", id: 6 },
+	{ name: "Samuel", team: "Shawzy", id: 7 },
+	{ name: "Tony Smith", team: "CeeDee's TDs", id: 8 },
+	{ name: "Collin", team: "TheItalianStallions", id: 9 },
+	{ name: "brandon", team: "flat TURF rnd GURTH", id: 10 },
+  { name: "All", team: 'All', id: 0 },
 ]
 
 export const keepers = [

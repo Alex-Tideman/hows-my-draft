@@ -1,12 +1,19 @@
 <script>
   	import { onMount } from 'svelte';
     import { browser } from '$app/env';
-  import { owners, items } from '../stores/store';
-  import Analysis from './Analysis.svelte';
-  import TeamList from './TeamList.svelte';
-  import Results from './Results.svelte';
-  import PayWall from './PayWall.svelte';
+    import { owners, items } from '../stores/store';
+    import Analysis from './Analysis.svelte';
+    import TeamList from './TeamList.svelte';
+    import Results from './Results.svelte';
+    import PayWall from './PayWall.svelte';
+    import { getMatchupData, getPerformanceData } from '../stores/results';
 
+  async function getStats() {
+    const [matchups, performance] = await Promise.all([getMatchupData(), getPerformanceData()]);
+    return { matchups, performance };
+  }
+
+  let stats;
   let tab = 'cost';
   let loggedIn = false;
   onMount(() => {
@@ -15,6 +22,11 @@
 
   $: activeOwner = $owners[0];
 
+  $: {
+    if (browser) {
+      stats = getStats()
+    }
+  };
   function handleClick(owner) {
 		activeOwner = owner;
 	}
@@ -33,7 +45,7 @@
       <ul class="menu">
         {#each $owners as item}
             <li class="menu-item owner-item" style={activeOwner.id === item.id ? "background-color: #00e047;" : ""} on:click={() => handleClick(item)} >
-              {item.name}
+              {item.team}
             </li>
         {/each}  
       </ul>
@@ -52,9 +64,15 @@
         <Analysis {activeOwner} statId={1} fill="#f03d4d" />
         <Analysis {activeOwner} statId={2} fill="#0dd157" />
         <Analysis {activeOwner} statId={3} fill="#2972fa" />
-      {:else if tab === 'performance'}
+      {:else if tab === 'performance'}    
         {#if loggedIn}
-          <Results {activeOwner} />
+          {#await stats}
+            <p class="text-green-500">Loading...</p>
+          {:then resolvedStats}
+            <Results {activeOwner} stats={resolvedStats} />
+          {:catch error}
+            <p class="text-red-500">{error.message}</p>
+          {/await}  
         {:else}
           <PayWall onClick={handlePasswordConfirm} />
         {/if}

@@ -1,0 +1,11 @@
+week,manager,win,points,proj_points,opponent,opp_points,opp_proj_points
+1,Brimbry,False,105.4,122.73,David,164.06,124.45
+1,David,True,164.06,124.45,Brimbry,105.4,122.73
+1,Steve-Dave,True,166.84,132.03,Collin,85.6,124.87
+1,Collin,False,85.6,124.87,Steve-Dave,166.84,132.03
+1,David,True,114.48,129.3,Tony Smith,80.62,126.1
+1,Tony Smith,False,80.62,126.1,David,114.48,129.3
+1,Joel Gitar,False,115.76,128.4,Samuel,140.96,121.52
+1,Samuel,True,140.96,121.52,Joel Gitar,115.76,128.4
+1,Alex,False,68.32,124.58,brandon,97.08,105.21
+1,brandon,True,97.08,105.21,Alex,68.32,124.58

@@ -18,7 +18,7 @@
               <div class="nav-item active">
                   <a href="#">Gongshow</a>
               </div>
-              <div class="nav-item has-sub" id="dropdown">
+              <!-- <div class="nav-item has-sub" id="dropdown">
                   <a class="nav-dropdown-link">Actions</a>
                   <ul class="dropdown-menu" role="menu">
                       <li role="menu-item"><a href="#">Login</a></li>
@@ -27,7 +27,7 @@
                       <li class="dropdown-menu-divider"></li>
                       <li role="menu-item"><a href="#">Log Out</a></li>
                   </ul>
-              </div>
+              </div> -->
           </div>
       </div>
   </div>

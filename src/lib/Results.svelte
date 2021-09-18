@@ -7,93 +7,14 @@
   import AxisY from './components/AxisY.svelte';
 
   export let activeOwner;
-  export let statId = 2;
-  export let fill = '#0dd157'
+  export let stats;
 
-  const stats = [
-    { id: 1, name: "Dollars per Round" },
-    { id: 2, name: "Dollars per Position" },
-    { id: 3, name: "Dollars Per Team" },
-  ]
+  console.log("STATS: ", stats)
 
-  function getStatData(id, ownerId) {
-    switch (id) {
-      case 1:
-        return items.getRoundData(ownerId);
-      case 2:
-        return items.getPositionData(ownerId);
-      case 3:
-        return items.getTeamData(ownerId)
-    }
-  }
-
-  function getxDomain(id, ownerId, data) {
-    switch (id) {
-      case 1:
-        return [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-      case 2:
-        return ['QB', 'RB', 'WR', 'TE', 'DEF', 'K'];
-      case 3:
-        return data.map(d => d.label);
-    }
-  }
-
-  function getyDomain(id, ownerId) {
-    switch (id) {
-      case 1:
-        return [0, ownerId === 0 ? 500 : 100];
-      case 2:
-        return [0, ownerId === 0 ? 1000 : 200];
-      case 3:
-        return [0, ownerId === 0 ? 200 : 100];
-    }
-  }
-
-  function getLegend(id, ownerId) {
-    switch (id) {
-      case 1:
-        return 'Round';
-      case 2:
-        return 'Position';
-      case 3:
-        return 'Team';
-    }
-  }
-
-  $: activeStat = stats.find(s => s.id === statId) ?? stats[0];
-
-  $: data = getStatData(activeStat.id, activeOwner.id);
-  $: yDomain = getyDomain(activeStat.id, activeOwner.id);
-  $: xDomain = getxDomain(activeStat.id, activeOwner.id, data);
-  $: legend = getLegend(activeStat.id, activeOwner.id);
-  let x;
 </script>
 
-<svelte:window bind:innerWidth={x}/>
 <div class="chart-container">
-  <LayerCake
-    padding={{ left: 20, right: 10, bottom: 20, top: 80 }}
-    x="label"
-    y="value"
-    height={400}
-    xScale={scaleBand().paddingInner([0.02]).round(true)}
-    yDomain={yDomain}
-    xDomain={xDomain}  
-    data={data}
-  >
-    <Svg>
-      <AxisX rotate={activeOwner.id === 0 && activeStat.id === 3} />
-      <AxisY
-        ticks={4}
-      />
-      <Line
-        fill={fill}
-        stroke={'#333'}
-        strokeWidth={3}  
-      />
-    </Svg>
-  </LayerCake>  
-  <div class="legend">{legend}</div>
+  STATS HERE!!!!!!!!
 </div>
 
 <style>
