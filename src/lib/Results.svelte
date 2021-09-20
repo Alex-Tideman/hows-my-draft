@@ -1,21 +1,37 @@
 <script>
-  import { LayerCake, Svg, Html, Canvas } from 'layercake';
-  import { scaleBand } from 'd3-scale';
-  import { items } from '../stores/store';
-  import Line from './components/Line.svelte';
-  import AxisX from './components/AxisX.svelte';
-  import AxisY from './components/AxisY.svelte';
+  // import { LayerCake, Svg, Html, Canvas } from 'layercake';
+  // import { scaleBand } from 'd3-scale';
+  import lodash from "lodash";
+  import { items, statStore } from '../stores/store';
+  // import Line from './components/Line.svelte';
+  // import AxisX from './components/AxisX.svelte';
+  // import AxisY from './components/AxisY.svelte';
+  import FlatIndexCard from './FlatIndexCard.svelte';
+  const { orderBy } = lodash;
 
   export let activeOwner;
-  export let stats;
+  export let rawStats;
 
-  console.log("STATS: ", stats)
+  const stats = statStore(rawStats)
+
+  $: list = items.getOwnerSet(activeOwner.id, false);
+  $: ownerStats = stats.getOwnerStats(list);
 
 </script>
 
-<div class="chart-container">
-  STATS HERE!!!!!!!!
-</div>
+<section>
+  <div class="tab-container tabs-depth tabs-fill">
+      <ul>
+        <li class="selected"><div class="tab-item-content">Players</div></li>
+        <li><div class="tab-item-content">Positions</div></li>
+        <li><div class="tab-item-content">Group</div></li>
+        <li><div class="tab-item-content">Shop</div></li>
+      </ul>
+  </div>
+  {#each ownerStats as item}
+    <FlatIndexCard {item} />
+  {/each}
+</section>
 
 <style>
   .chart-container {

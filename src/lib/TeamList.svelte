@@ -5,7 +5,7 @@
   const { groupBy, orderBy } = lodash;
 
   export let activeOwner = $owners[0];
-  $: list = items.getOwnerSet(activeOwner.id);
+  $: list = items.getOwnerSet(activeOwner.id, true);
   $: sortedItems = orderBy(list, 'cost', 'desc');
 </script>
 

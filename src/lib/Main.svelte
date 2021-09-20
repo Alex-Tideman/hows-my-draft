@@ -1,7 +1,7 @@
 <script>
   	import { onMount } from 'svelte';
     import { browser } from '$app/env';
-    import { owners, items } from '../stores/store';
+    import { owners } from '../stores/store';
     import Analysis from './Analysis.svelte';
     import TeamList from './TeamList.svelte';
     import Results from './Results.svelte';
@@ -9,11 +9,11 @@
     import { getMatchupData, getPerformanceData } from '../stores/results';
 
   async function getStats() {
-    const [matchups, performance] = await Promise.all([getMatchupData(), getPerformanceData()]);
-    return { matchups, performance };
-  }
+      const [matchups, performances] = await Promise.all([getMatchupData(), getPerformanceData()]);
+      return { matchups, performances };
+    }
 
-  let stats;
+  let statsPromise;
   let tab = 'cost';
   let loggedIn = false;
   onMount(() => {
@@ -24,7 +24,7 @@
 
   $: {
     if (browser) {
-      stats = getStats()
+      statsPromise = getStats()
     }
   };
   function handleClick(owner) {
@@ -66,10 +66,10 @@
         <Analysis {activeOwner} statId={3} fill="#2972fa" />
       {:else if tab === 'performance'}    
         {#if loggedIn}
-          {#await stats}
+          {#await statsPromise}
             <p class="text-green-500">Loading...</p>
           {:then resolvedStats}
-            <Results {activeOwner} stats={resolvedStats} />
+            <Results {activeOwner} rawStats={resolvedStats} />
           {:catch error}
             <p class="text-red-500">{error.message}</p>
           {/await}  

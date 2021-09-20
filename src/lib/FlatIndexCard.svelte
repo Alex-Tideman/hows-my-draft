@@ -66,8 +66,8 @@
 
   .cost-btn {
     font-weight: 700;
-    font-size: 1.5em;
-    width: 80px;
+    font-size: 1.25em;
+    width: 100px;
     color: #333 !important;
   }
 
