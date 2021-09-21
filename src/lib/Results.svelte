@@ -12,25 +12,35 @@
   export let activeOwner;
   export let rawStats;
 
+  let tab = 'leaderboard';
   const fullList = items.getFullSet();
   const stats = statStore(rawStats, fullList)
 
-  $: list = items.getOwnerSet(activeOwner.id, false);
-  $: ownerStats = stats.getOwnerStats(list);
+  $: ownerList = items.getOwnerSet(activeOwner.id, false);
+  $: ownerStats = stats.getOwnerStats(ownerList);
 
 </script>
 
 <section>
   <div class="tab-container tabs-depth tabs-fill">
       <ul>
-        <li><div class="tab-item-content">Leaderboard</div></li>
-        <li><div class="tab-item-content">Players</div></li>
-        <li><div class="tab-item-content">Charts</div></li>
+        <li class={tab === 'leaderboard' ? 'selected' : ''}><div class="tab-item-content" on:click={() => tab = 'leaderboard'}>Leaderboard</div></li>
+        <li class={tab === 'players' ? 'selected' : ''}><div class="tab-item-content" on:click={() => tab = 'players'}>Players</div></li>
+        <li class={tab === 'charts' ? 'selected' : ''}><div class="tab-item-content" on:click={() => tab = 'charts'}>Charts</div></li>
       </ul>
   </div>
-  {#each ownerStats as item}
-    <StatCard {item} />
-  {/each}
+  {#if tab === 'leaderboard'}
+    {#each ownerStats as item}
+      <StatCard {item} />
+    {/each}
+  {:else if tab === 'players'}
+    {#each ownerStats as item}
+      <StatCard {item} />
+    {/each}
+  {:else}
+    <h1 class="m-2">Charts</h1>
+    <p class="m-2">Coming soon...</p>
+  {/if}
 </section>
 
 <style>
