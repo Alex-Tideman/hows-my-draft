@@ -14,7 +14,7 @@
     }
 
   let statsPromise;
-  let tab = 'cost';
+  let tab = 'performance';
   let loggedIn = false;
   onMount(() => {
     loggedIn = localStorage.getItem(':howsmydraft:league:password') ? true : false;
@@ -53,9 +53,9 @@
     <div class="col-md-9 col-xs-12 text-left">
       <div class="tab-container">
           <ul>
-              <li class={tab === 'cost' ? 'selected' : ''} on:click={() => tab = 'cost'}><div class="tab-item-content">Cost</div></li>
-              <li class={tab === 'strategy' ? 'selected' : ''} on:click={() => tab = 'strategy'}><div class="tab-item-content">Strategy</div></li>
               <li class={tab === 'performance' ? 'selected' : ''} on:click={() => tab = 'performance'}><div class="tab-item-content">Performance</div></li>
+              <li class={tab === 'strategy' ? 'selected' : ''} on:click={() => tab = 'strategy'}><div class="tab-item-content">Strategy</div></li>
+              <li class={tab === 'cost' ? 'selected' : ''} on:click={() => tab = 'cost'}><div class="tab-item-content">Cost</div></li>
           </ul>
       </div>    
       {#if tab === 'cost'}

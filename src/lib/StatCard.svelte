@@ -31,11 +31,11 @@
   <div class="tile__buttons m-0">
     <div class="u-flex">
         <div class="tag-wrapper">
-          <div class="tag stat-tag tag--info">{item.pointsDiff >= 0 ? '+' : ''}{item.pointsDiff.toFixed(2)} <span class="tag-label">pts/gm</span></div>
-          <div class="tag stat-tag tag--danger">x{item.costMultiplier.toFixed(2)} <span class="tag-label">$ cheaper</span></div>
+          <div class="tag stat-tag tag--{item.pointsDiff === 0 ? 'black' : 'info'}">{item.pointsDiff >= 0 ? '+' : ''}{item.pointsDiff.toFixed(2)} <span class="tag-label">pts/gm</span></div>
+          <div class="tag stat-tag tag--success">x{item.costMultiplier.toFixed(2)} <span class="tag-label">cheaper</span></div>
         </div>
         <div class="uppercase">
-          <button class="btn-success uppercase cost-btn">{item.playerRatio.toFixed(2)}</button>
+          <button class="btn-warning uppercase cost-btn">{item.playerRatio.toFixed(2)}</button>
         </div>
     </div>  
   </div>
@@ -86,7 +86,7 @@
   }
 
   .tag-label {
-      font-size: .8em;
+      font-size: .9em;
       margin-left: 5px;
     }
 
