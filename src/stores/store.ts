@@ -1,7 +1,6 @@
 import { readable, writable } from 'svelte/store';
 import lodash from 'lodash';
 import { members, draft } from './draftResults';
-import { week1 } from './week1Results';
 
 export interface Matchup {
 	manager: string;
@@ -74,6 +73,9 @@ const itemStore = (initialValue) => {
 			}
 			return initialValue.slice(index - 1, index + 4)
 		},
+		getFullSet: () => {
+			return initialValue;
+		},
 		getOwnerSet: (id: number, showRemaining: boolean) => {
 			if (id) {
 				const players = initialValue.filter(i => i.owner_id === id);
@@ -134,7 +136,7 @@ const getTotalPoints = (weeks) => {
 		return 0;
 	}
 	return weeks
-		.filter(w => w.roster_position !== 'BN')
+		// .filter(w => w.roster_position)
 		.reduce((sum, week) => sum += parseFloat(week.points), 0)
 }
 
@@ -142,13 +144,23 @@ const getGamesPlayed = (weeks) => {
 	if (!weeks || !weeks.length) {
 		return 0;
 	}
-	return weeks
-		.filter(w => w.roster_position !== 'BN')
-		.length
+	return weeks.length
 }
 
-export const statStore = (initialValue: { matchups: Matchup[], performances: Performance[] }) => {
-  const { subscribe, set, update } = writable(initialValue);
+export const statStore = (initialValue, draftList) => {
+	const combinedPerformances = initialValue.performances.map(p => {
+    const drafted = draftList.find(l => l.name === p.name)
+    if (drafted) {
+      return { ...p, cost: drafted.cost };
+    }
+    return { ...p, cost: 0 };
+  })
+  const combinedStats = { 
+		matchups: initialValue.matchups, 
+		performances: combinedPerformances 
+	};
+
+  const { subscribe, set, update } = writable(combinedStats);
 
   return {
     subscribe,
@@ -157,21 +169,39 @@ export const statStore = (initialValue: { matchups: Matchup[], performances: Per
     },
     update,
 		getOwnerStats: (list) => {
-			const groupedPeformance = groupBy(initialValue.performances, 'name');
+			const groupPeformanceByName = groupBy(combinedStats.performances, 'name');
+			const groupPerformanceByPosition = groupBy(combinedStats.performances, 'position');
+			const getAverageOfPosition = (position) => {
+				const group = groupPerformanceByPosition[position];
+				const totalPoints = group.reduce((sum, week) => sum += parseFloat(week.points), 0)
+				const totalCost = group.reduce((sum, week) => sum += parseFloat(week.cost), 0)
+				const avgPoints = totalPoints / group.length;
+				const avgCost = totalCost / group.filter(p => parseInt(p.cost) > 0).length;
+				return { avgCost, avgPoints }
+			}
 			const statList = list.map(x => {
-				const weeks = groupedPeformance[x.name] ?? [];
+				const weeks = groupPeformanceByName[x.name] ?? [];
 				const gamesPlayed = getGamesPlayed(weeks);
 				const totalPoints = getTotalPoints(weeks);
-				const pointsPerDollar = gamesPlayed > 0 ? (totalPoints / parseInt(x.cost)).toFixed(2) : 0	
-				return { 
+				const { avgCost, avgPoints } = getAverageOfPosition(x.position)
+				const playerAvgPoints = gamesPlayed > 0 ? (totalPoints / gamesPlayed) : 0;
+				// High pointsDiff => Scoring a lot. Outperforming avg for position
+				const pointsDiff = playerAvgPoints ? playerAvgPoints - avgPoints : 0;
+				// High costMultiplier => Cheap compared to position avg cost
+				const costMultiplier = avgCost / parseInt(x.cost);
+				// High playerRatio => Overperforming and cheap compared to position avg cost
+				const playerRatio = pointsDiff >= 0 ? pointsDiff * costMultiplier : pointsDiff / costMultiplier
+				return {
 					...x, 
+					pointsDiff,
+					costMultiplier,
 					gamesPlayed,
 					totalPoints,
-					cost: pointsPerDollar,
+					playerRatio,
 					weeks,
 				}
 			})
-			const orderedList = orderBy(statList, 'cost', 'desc');
+			const orderedList = orderBy(statList, 'playerRatio', 'desc');
 			return orderedList;
 		}
   }
@@ -180,7 +210,4 @@ export const statStore = (initialValue: { matchups: Matchup[], performances: Per
 export const items = itemStore(draft);
 export const owners = readable(members, set => {
 	set(members);
-});
-export const results = readable(week1, set => {
-	set(week1);
 });

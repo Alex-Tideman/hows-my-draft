@@ -94,6 +94,12 @@
   cursor: pointer;
   border-radius: 5px;
   line-height: 1em;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .tab-item-content {

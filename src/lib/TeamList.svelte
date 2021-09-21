@@ -1,6 +1,6 @@
 <script>
   import { owners, items } from '../stores/store';
-  import FlatIndexCard from './FlatIndexCard.svelte';
+  import CostCard from './CostCard.svelte';
   import lodash from 'lodash';
   const { groupBy, orderBy } = lodash;
 
@@ -11,6 +11,6 @@
 
 <section>
   {#each sortedItems as item}
-    <FlatIndexCard {item} />
+    <CostCard {item} />
   {/each}
 </section>

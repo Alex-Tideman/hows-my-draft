@@ -6,13 +6,14 @@
   // import Line from './components/Line.svelte';
   // import AxisX from './components/AxisX.svelte';
   // import AxisY from './components/AxisY.svelte';
-  import FlatIndexCard from './FlatIndexCard.svelte';
+  import StatCard from './StatCard.svelte';
   const { orderBy } = lodash;
 
   export let activeOwner;
   export let rawStats;
 
-  const stats = statStore(rawStats)
+  const fullList = items.getFullSet();
+  const stats = statStore(rawStats, fullList)
 
   $: list = items.getOwnerSet(activeOwner.id, false);
   $: ownerStats = stats.getOwnerStats(list);
@@ -22,14 +23,13 @@
 <section>
   <div class="tab-container tabs-depth tabs-fill">
       <ul>
-        <li class="selected"><div class="tab-item-content">Players</div></li>
-        <li><div class="tab-item-content">Positions</div></li>
-        <li><div class="tab-item-content">Group</div></li>
-        <li><div class="tab-item-content">Shop</div></li>
+        <li><div class="tab-item-content">Leaderboard</div></li>
+        <li><div class="tab-item-content">Players</div></li>
+        <li><div class="tab-item-content">Charts</div></li>
       </ul>
   </div>
   {#each ownerStats as item}
-    <FlatIndexCard {item} />
+    <StatCard {item} />
   {/each}
 </section>
 
