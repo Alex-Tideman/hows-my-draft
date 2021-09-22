@@ -147,6 +147,47 @@ const getGamesPlayed = (weeks) => {
 	return weeks.length
 }
 
+const getAverageOfPosition = (group) => {
+	const totalPoints = group.reduce((sum, week) => sum += parseFloat(week.points), 0)
+	const totalCost = group.reduce((sum, week) => sum += parseFloat(week.cost), 0)
+	const avgPoints = totalPoints / group.length;
+	const avgCost = totalCost / group.filter(p => parseInt(p.cost) > 0).length;
+	return { avgCost, avgPoints }
+}
+
+const generateStatList = (list, combinedStats) => {
+	const groupPeformanceByName = groupBy(combinedStats.performances, 'name');
+	const groupPerformanceByPosition = groupBy(combinedStats.performances, 'position');
+
+	return list.map(x => {
+		const weeks = groupPeformanceByName[x.name] ?? [];
+		const gamesPlayed = getGamesPlayed(weeks);
+		const totalPoints = getTotalPoints(weeks);
+		const positionGroup = groupPerformanceByPosition[x.position];
+		const { avgCost, avgPoints } = getAverageOfPosition(positionGroup)
+		const playerAvgPoints = gamesPlayed > 0 ? (totalPoints / gamesPlayed) : 0;
+		// High pointsDiff => Scoring a lot. Outperforming avg for position
+		const pointsDiff = playerAvgPoints ? playerAvgPoints - avgPoints : 0;
+		// High costMultiplier => Cheap compared to position avg cost
+		const costMultiplier = avgCost / parseInt(x.cost);
+		// High playerRatio => Overperforming and cheap compared to position avg cost
+		const playerRatio = pointsDiff >= 0 ? pointsDiff * costMultiplier : pointsDiff / costMultiplier
+		return {
+			...x, 
+			pointsDiff,
+			costMultiplier,
+			gamesPlayed,
+			totalPoints,
+			playerRatio,
+			player: true,
+			weeks,
+		}
+	})
+}
+
+
+
+
 export const statStore = (initialValue, draftList) => {
 	const combinedPerformances = initialValue.performances.map(p => {
     const drafted = draftList.find(l => l.name === p.name)
@@ -168,39 +209,17 @@ export const statStore = (initialValue, draftList) => {
       return set(value)
     },
     update,
+		getLeagueStats: (memberList) => {
+			const leagueStatList = memberList.map(({ member, list }) => {
+				const memberStatList = generateStatList(list, combinedStats)
+				const playerRatio = memberStatList.reduce((sum, player) => sum += player.playerRatio, 0)
+				return { name: member.team, team: member.name, img: member.img, playerRatio }
+			});
+			const orderedList = orderBy(leagueStatList, 'playerRatio', 'desc');
+			return orderedList;
+		},
 		getOwnerStats: (list) => {
-			const groupPeformanceByName = groupBy(combinedStats.performances, 'name');
-			const groupPerformanceByPosition = groupBy(combinedStats.performances, 'position');
-			const getAverageOfPosition = (position) => {
-				const group = groupPerformanceByPosition[position];
-				const totalPoints = group.reduce((sum, week) => sum += parseFloat(week.points), 0)
-				const totalCost = group.reduce((sum, week) => sum += parseFloat(week.cost), 0)
-				const avgPoints = totalPoints / group.length;
-				const avgCost = totalCost / group.filter(p => parseInt(p.cost) > 0).length;
-				return { avgCost, avgPoints }
-			}
-			const statList = list.map(x => {
-				const weeks = groupPeformanceByName[x.name] ?? [];
-				const gamesPlayed = getGamesPlayed(weeks);
-				const totalPoints = getTotalPoints(weeks);
-				const { avgCost, avgPoints } = getAverageOfPosition(x.position)
-				const playerAvgPoints = gamesPlayed > 0 ? (totalPoints / gamesPlayed) : 0;
-				// High pointsDiff => Scoring a lot. Outperforming avg for position
-				const pointsDiff = playerAvgPoints ? playerAvgPoints - avgPoints : 0;
-				// High costMultiplier => Cheap compared to position avg cost
-				const costMultiplier = avgCost / parseInt(x.cost);
-				// High playerRatio => Overperforming and cheap compared to position avg cost
-				const playerRatio = pointsDiff >= 0 ? pointsDiff * costMultiplier : pointsDiff / costMultiplier
-				return {
-					...x, 
-					pointsDiff,
-					costMultiplier,
-					gamesPlayed,
-					totalPoints,
-					playerRatio,
-					weeks,
-				}
-			})
+			const statList = generateStatList(list, combinedStats);
 			const orderedList = orderBy(statList, 'playerRatio', 'desc');
 			return orderedList;
 		}

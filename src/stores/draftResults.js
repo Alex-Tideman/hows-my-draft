@@ -1,16 +1,16 @@
 
 export const members = [
-	{ name: "Brimbry", team: "Boom or Bimbust", id: 1 },
-	{ name: "David", team: "Steve's Jeans", id: 2 },
-	{ name: "Steve-Dave", team: "Real Steve", id: 3 },
-	{ name: "David", team: "David's Team", id: 4 },
-	{ name: "Joel Gitar", team: "The Dirty Wash Boyz", id: 5 },
-	{ name: "Alex", team: "Papa Bearskin Rug", id: 6 },
-	{ name: "Samuel", team: "Shawzy", id: 7 },
-	{ name: "Tony Smith", team: "CeeDee's TDs", id: 8 },
-	{ name: "Collin", team: "TheItalianStallions", id: 9 },
-	{ name: "brandon", team: "flat TURF rnd GURTH", id: 10 },
-  { name: "All", team: 'All', id: 0 },
+	{ name: "Brimbry", team: "Boom or Bimbust", id: 1, img: "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s90sq/fantasy-logos/7b89f7b9b58ed87545a9b979714d0698ed4b7aaaaec0d337c67e47c85522f4e5.jpg" },
+	{ name: "David", team: "Steve's Jeans", id: 2, img: "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s90sq/fantasy-logos/25199344681_38ac63bb93.jpg" },
+	{ name: "Steve-Dave", team: "Real Steve", id: 3, img: "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s90sq/fantasy-logos/55205781182_d15e3d.jpg" },
+	{ name: "David", team: "David's Team", id: 4, img: "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s90sq/fantasy-logos/36928735670_bdf5fb.jpg" },
+	{ name: "Joel Gitar", team: "The Dirty Wash Boyz", id: 5, img: "https://s.yimg.com/cv/apiv2/default/nfl/nfl_2.png" },
+	{ name: "Alex", team: "Papa Bearskin Rug", id: 6, img: "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s90sq/fantasy-logos/44368271194_2b2a18.jpg" },
+	{ name: "Samuel", team: "Shawzy", id: 7, img: "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s90sq/fantasy-logos/36949770071_1f8888.jpg" },
+	{ name: "Tony Smith", team: "CeeDee's TDs", id: 8, img: "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s90sq/fantasy-logos/355b89ce8c61a4a6acdfafc67ce4f3a6de5934485e40647c9a63f5b7c6738c47.jpg" },
+	{ name: "Collin", team: "TheItalianStallions", id: 9, img: "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s90sq/fantasy-logos/45412654691_7390c2.jpg" },
+	{ name: "brandon", team: "flat TURF rnd GURTH", id: 10, img: "https://s.yimg.com/cv/apiv2/default/nfl/nfl_7.png" },
+  { name: "All", team: 'All', id: 0, img: "" },
 ]
 
 export const keepers = [

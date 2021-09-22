@@ -18,7 +18,7 @@
     {#if item.round === 0}
     <p class="m-0 uppercase keeper">Keeper</p>
     {/if}
-    <figure class="avatar">
+    <figure class="avatar {item.player ? 'player-avatar' : ''}">
       <img src={item.img ? item.img : placeholderImg} alt={item.name} />
     </figure>
   </div>
@@ -31,11 +31,13 @@
   <div class="tile__buttons m-0">
     <div class="u-flex">
         <div class="tag-wrapper">
-          <div class="tag stat-tag tag--{item.pointsDiff === 0 ? 'black' : 'info'}">{item.pointsDiff >= 0 ? '+' : ''}{item.pointsDiff.toFixed(2)} <span class="tag-label">pts/gm</span></div>
-          <div class="tag stat-tag tag--success">x{item.costMultiplier.toFixed(2)} <span class="tag-label">cheaper</span></div>
+          {#if item.costMultiplier}
+          <div class="tag stat-tag tag--info">{item.pointsDiff >= 0 ? '+' : ''}{item.pointsDiff.toFixed(2)} <span class="tag-label">pts/gm</span></div>
+          <div class="tag stat-tag tag--danger">x{item.costMultiplier.toFixed(2)} <span class="tag-label">cheaper</span></div>
+          {/if}
         </div>
         <div class="uppercase">
-          <button class="btn-warning uppercase cost-btn">{item.playerRatio.toFixed(2)}</button>
+          <button class="btn-success uppercase cost-btn">{item.playerRatio.toFixed(2)}</button>
         </div>
     </div>  
   </div>
@@ -61,8 +63,11 @@
   .avatar {
     height: 6rem;
     width: 6rem;
-    padding-top: 20px;
     background-color: #fff;
+  }
+
+  .player-avatar {
+    padding-top: 20px;
   }
 
   .point-btn {
@@ -118,6 +123,9 @@
       padding-top: 8px;
       background-color: #fff;
     }
+    .player-avatar {
+      padding-top: 8px;
+    }
     .tag-wrapper {
       width: 60px;
       margin-right: 4px;
@@ -132,8 +140,8 @@
     }
     .cost-btn {
       font-weight: 700;
-      font-size: .85em;
-      width: 60px;
+      font-size: .80em;
+      width: 55px;
       padding: 5px 0;
     }
     .keeper {

@@ -85,7 +85,7 @@
 <div class="chart-container">
   <div class="title">{title}</div>
   <LayerCake
-    padding={{ left: 20, right: 10, bottom: 10, top: 10 }}
+    padding={{ left: 20, right: 10, bottom: 15, top: 10 }}
     x="label"
     y="value"
     xScale={scaleBand().paddingInner([0.02]).round(true)}
@@ -128,6 +128,7 @@
     font-weight: 900;
     font-size: 1.20em;
     text-align: center;
+    padding-top: 15px;
   }
 
   @media (max-width: 1030px) {

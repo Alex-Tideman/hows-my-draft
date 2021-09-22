@@ -84,4 +84,13 @@
     z-index: 10;
     text-align: center;
   }
+
+  @media (max-width: 460px) {
+    .cost-btn {
+      font-size: .90em;
+      width: 60px;
+      padding: 5px 0;
+    }
+  }
+
 </style>
