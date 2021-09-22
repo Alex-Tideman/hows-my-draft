@@ -1,3 +1,18 @@
+Layer Cake
+Brush
+Brushedit
+1980
+1990
+2000
+2010
+0
+2
+4
+6
+
+
+Download      
+index.svelte./components/Line.svelte./components/Area.svelte./components/AxisX.svelte./components/AxisY.svelte./components/Brush.svelte./data/points.csv
 <script>
   import { getContext } from 'svelte';
 
@@ -49,26 +64,26 @@
         dx='{isBandwidth ? -9 : dxTick}'
         dy='{isBandwidth ? 4 : dyTick}'
         style="text-anchor:{isBandwidth ? 'end' : textAnchor};"
-      >${formatTick(tick)}</text>
+      >{formatTick(tick)}</text>
     </g>
   {/each}
 </g>
 
 <style>
   .tick {
-    font-size: .625em;
-    font-weight: 700;
+    font-size: .725em;
+    font-weight: 200;
   }
 
   .tick line {
-    stroke: #666;
+    stroke: #aaa;
   }
   .tick .gridline {
     stroke-dasharray: 2;
   }
 
   .tick text {
-    fill: #333;
+    fill: #666;
   }
 
   .tick.tick-0 line {

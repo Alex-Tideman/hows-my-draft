@@ -10,11 +10,11 @@ async function getStats() {
     return { matchups, performances };
   }
 
-let statsPromise;
-let loggedIn = false;
-onMount(() => {
-  loggedIn = localStorage.getItem(':howsmydraft:league:password') ? true : false;
-});
+let statsPromise = Promise.resolve([]);
+// let loggedIn = false;
+// onMount(() => {
+//   loggedIn = true;
+// });
 
 $: {
   if (browser) {
@@ -31,21 +31,16 @@ function handlePasswordConfirm(password) {
 </script>
 
 <div class="container">
-  {#if loggedIn}
-    {#await statsPromise}
-      <div class="card u-flex u-items-center u-justify-center" style="background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224));">
-        <div class="animated loading hide-text loading-white">
-            <p>Hidden</p>
-        </div>
-      </div>        
-      {:then resolvedStats}
-        <Main rawStats={resolvedStats} />
-      {:catch error}
-        <p class="text-red-500">{error.message}</p>
-      {/await}  
-  {:else}
-    <PayWall onClick={handlePasswordConfirm} />
-  {/if}
+  {#await statsPromise}
+    <div class="card u-flex u-items-center u-justify-center h-screen" style="background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224));">
+      <div class="animated loading hide-text loading-white">
+      </div>
+    </div>        
+    {:then resolvedStats}
+      <Main rawStats={resolvedStats} />
+    {:catch error}
+      <p class="text-red-500">{error.message}</p>
+    {/await}  
 </div>
 
 <style>

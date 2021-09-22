@@ -1,3 +1,18 @@
+Layer Cake
+Brush
+Brushedit
+1980
+1990
+2000
+2010
+0
+2
+4
+6
+
+
+Download      
+index.svelte./components/Line.svelte./components/Area.svelte./components/AxisX.svelte./components/AxisY.svelte./components/Brush.svelte./data/points.csv
 <script>
   import { getContext } from 'svelte';
 
@@ -13,7 +28,6 @@
   export let yTick = 16;
   export let dxTick = 0;
   export let dyTick = 0;
-  export let rotate = false;
 
   $: isBandwidth = typeof $xScale.bandwidth === 'function';
 
@@ -33,6 +47,7 @@
         return 'end';
       }
     }
+    return 'middle';
   }
 </script>
 
@@ -50,7 +65,6 @@
         y='{yTick}'
         dx='{dxTick}'
         dy='{dyTick}'
-        class={rotate ? 'rotate' : ''}
         text-anchor='{textAnchor(i)}'>{formatTick(tick)}</text>
     </g>
   {/each}
@@ -67,17 +81,12 @@
 
   line,
   .tick line {
-    stroke: #666;
+    stroke: #aaa;
     stroke-dasharray: 2;
   }
 
   .tick text {
-    fill: #333;
-    font-weight: 700;
-  }
-
-  .rotate {
-    transform: rotate(35deg);
+    fill: #666;
   }
 
   .tick .tick-mark,

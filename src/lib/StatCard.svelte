@@ -29,12 +29,12 @@
   const placeholderImg = 'https://s.yimg.com/cv/apiv2/default/20180730/silhouette@x300.png'
 </script>
 
-<div class="tile p-1 m-1 {colorByIndex ? colorIndex[index] : ''}  u-round u-items-center">
+<div class="tile p-1 m-1 {item.team ? 'bg-gray-200' : 'bg-red-400'} u-round u-items-center">
   <div class="tile__icon">
     {#if item.round === 0}
     <p class="m-0 uppercase keeper">Keeper</p>
     {/if}
-    <figure class="avatar {item.player ? 'player-avatar' : ''}">
+    <figure class="avatar {item.player ? 'player-avatar' : ''}  {colorByIndex ? colorIndex[index] : ''}  ">
       <img src={item.img ? item.img : placeholderImg} alt={item.name} />
     </figure>
   </div>

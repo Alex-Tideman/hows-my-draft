@@ -1,12 +1,8 @@
 <script>
-  // import { LayerCake, Svg, Html, Canvas } from 'layercake';
-  // import { scaleBand } from 'd3-scale';
   import lodash from "lodash";
   import { items, owners, statStore } from '../stores/store';
-  // import Line from './components/Line.svelte';
-  // import AxisX from './components/AxisX.svelte';
-  // import AxisY from './components/AxisY.svelte';
   import StatCard from './StatCard.svelte';
+  import StatCardAnalysis from "./StatCardAnalysis.svelte";
   const { orderBy } = lodash;
 
   export let activeOwner;
@@ -16,12 +12,13 @@
   const stats = statStore(rawStats, fullList)
 
   $: ownerList = items.getOwnerSet(activeOwner?.id, false);
-  $: ownerStats = stats.getOwnerStats(ownerList) ?? []
+  $: ownerStats = stats.getOwnerStats(ownerList);
 </script>
 
 <section>
-  {#each ownerStats as item}
-    <StatCard {item} />
+  {#each ownerStats as item, index}
+    <StatCard {item} {index} on:click={() => handleClick(index)}/>
+    <StatCardAnalysis {item} />
   {/each}
 </section>
 

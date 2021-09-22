@@ -31,7 +31,7 @@
       <div class="tab-container">
           <ul>
               <li class={tab === 'leaderboard' ? 'selected' : ''} on:click={() => tab = 'leaderboard'}><div class="tab-item-content {tab === 'leaderboard' ? 'bg-red-100' : ''}">Leaderboard</div></li>
-              <li class={tab === 'performance' ? 'selected' : ''} on:click={() => tab = 'performance'}><div class="tab-item-content {tab === 'performance' ? 'bg-red-100' : ''}">Performance</div></li>
+              <li class={tab === 'performance' ? 'selected' : ''} on:click={() => tab = 'performance'}><div class="tab-item-content {tab === 'performance' ? 'bg-red-100' : ''}">DraftScore&trade;</div></li>
               <li class={tab === 'strategy' ? 'selected' : ''} on:click={() => tab = 'strategy'}><div class="tab-item-content {tab === 'strategy' ? 'bg-red-100' : ''}">Strategy</div></li>
               <li class={tab === 'cost' ? 'selected' : ''} on:click={() => tab = 'cost'}><div class="tab-item-content {tab === 'cost' ? 'bg-red-100' : ''}">Cost</div></li>
           </ul>

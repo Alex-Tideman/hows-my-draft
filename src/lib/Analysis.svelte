@@ -85,7 +85,7 @@
 <div class="chart-container">
   <div class="title">{title}</div>
   <LayerCake
-    padding={{ left: 20, right: 10, bottom: 15, top: 10 }}
+    padding={{ left: 40, right: 10, bottom: 15, top: 10 }}
     x="label"
     y="value"
     xScale={scaleBand().paddingInner([0.02]).round(true)}
@@ -94,9 +94,10 @@
     data={data}
   >
     <Svg>
-      <AxisX rotate={activeOwner.id === 0 && activeStat.id === 3} />
+      <AxisX />
       <AxisY
         ticks={4}
+        formatTick={d => `$${d}`}
       />
       <Bar
         fill={fill}
