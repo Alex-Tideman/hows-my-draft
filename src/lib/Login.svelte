@@ -10,7 +10,7 @@ async function getStats() {
     return { matchups, performances };
   }
 
-let statsPromise = Promise.resolve([]);
+let statsPromise = Promise.resolve({ matchups: [], performances: [] });
 // let loggedIn = false;
 // onMount(() => {
 //   loggedIn = true;
@@ -22,12 +22,12 @@ $: {
   }
 };
 
-function handlePasswordConfirm(password) {
-  if (password === 'tinahungry') {
-    loggedIn = true;
-    localStorage.setItem(':howsmydraft:league:password', JSON.stringify(password))
-  }
-}
+// function handlePasswordConfirm(password) {
+//   if (password === 'tinahungry') {
+//     loggedIn = true;
+//     localStorage.setItem(':howsmydraft:league:password', JSON.stringify(password))
+//   }
+// }
 </script>
 
 <div class="container">

@@ -13,12 +13,22 @@
 
   $: ownerList = items.getOwnerSet(activeOwner?.id, false);
   $: ownerStats = stats.getOwnerStats(ownerList);
+
+  function getItemData(item) {
+    if (!item.weeks || !item.weeks.length) {
+      return [];
+    }
+    return item.weeks.map(w => {
+        return { week: w.week, points: w.points }
+      })
+  }
+
 </script>
 
 <section>
   {#each ownerStats as item, index}
-    <StatCard {item} {index} on:click={() => handleClick(index)}/>
-    <StatCardAnalysis {item} />
+    <StatCard {item} {index} />
+    <StatCardAnalysis data={getItemData(item)} />
   {/each}
 </section>
 

@@ -6,12 +6,7 @@
   import AxisX from './components/AxisX.svelte';
   import AxisY from './components/AxisY.svelte';
 
-  export let item;
-
-  $: data = item && item?.weeks ? item.weeks?.map(w => {
-    return { week: w.week, points: w.points }
-  }) : [];
-  
+  export let data;
 
 </script>
 {#if data.length > 0}
