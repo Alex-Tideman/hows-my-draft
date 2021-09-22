@@ -13,7 +13,7 @@
   const placeholderImg = 'https://s.yimg.com/cv/apiv2/default/20180730/silhouette@x300.png'
 </script>
 
-<div class="tile p-1 m-1 {item.team ? 'bg-gray-100' : 'bg-red-600'}  u-round u-items-center">
+<div class="tile p-1 m-1 {item.team ? 'bg-gray-200' : 'bg-red-600'}  u-round u-items-center">
   <div class="tile__icon">
     {#if item.round === 0}
     <p class="m-0 uppercase keeper">Keeper</p>
@@ -125,6 +125,9 @@
     }
     .player-avatar {
       padding-top: 8px;
+    }
+    .tile__title {
+      font-size: .90em;
     }
     .tag-wrapper {
       width: 60px;

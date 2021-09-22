@@ -14,11 +14,11 @@
 	export const prerender = true;
 </script>
 <script lang="ts">
-	import Main from '$lib/Main.svelte';
+	import Login from '$lib/Login.svelte';
 </script>
 
 <svelte:head>
 	<title>How's My Draft</title>
 </svelte:head>
 
-<Main slot="main" />
+<Login slot="main" />

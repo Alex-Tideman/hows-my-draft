@@ -12,38 +12,26 @@
   export let activeOwner;
   export let rawStats;
 
-  let tab = 'leaderboard';
   const fullList = items.getFullSet();
   const stats = statStore(rawStats, fullList)
   const leagueList = $owners.filter(m => m.id).map(member => {
     return { member, list: items.getOwnerSet(member.id, false) }
   })
-  const leaderboardList = stats.getLeagueStats(leagueList)
+  const leagueStats = stats.getLeagueStats(leagueList)
 
-  $: ownerList = items.getOwnerSet(activeOwner.id, false);
-  $: ownerStats = stats.getOwnerStats(ownerList);
-
+  $: ownerList = items.getOwnerSet(activeOwner?.id, false);
+  $: ownerStats = stats.getOwnerStats(ownerList)
 </script>
 
 <section>
-  <div class="tab-container tabs-depth tabs-fill">
-      <ul>
-        <li class={tab === 'leaderboard' ? 'selected' : ''}><div class="tab-item-content {tab === 'leaderboard' ? 'bg-red-100' : ''}" on:click={() => tab = 'leaderboard'}>Leaderboard</div></li>
-        <li class={tab === 'players' ? 'selected' : ''}><div class="tab-item-content {tab === 'players' ? 'bg-red-100' : ''}" on:click={() => tab = 'players'}>Players</div></li>
-        <li class={tab === 'charts' ? 'selected' : ''}><div class="tab-item-content {tab === 'charts' ? 'bg-red-100' : ''}" on:click={() => tab = 'charts'}>Charts</div></li>
-      </ul>
-  </div>
-  {#if tab === 'leaderboard'}
-    {#each leaderboardList as item}
-      <StatCard {item} />
-    {/each}
-  {:else if tab === 'players'}
+  {#if activeOwner}
     {#each ownerStats as item}
       <StatCard {item} />
     {/each}
   {:else}
-    <h1 class="m-2">Charts</h1>
-    <p class="m-2">Coming soon...</p>
+    {#each leagueStats as item}
+      <StatCard {item} />
+    {/each}
   {/if}
 </section>
 
