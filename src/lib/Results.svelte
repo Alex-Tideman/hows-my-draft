@@ -14,13 +14,18 @@
   $: ownerList = items.getOwnerSet(activeOwner?.id, false);
   $: ownerStats = stats.getOwnerStats(ownerList);
 
+  const seasonWeeks = ['1', '2']
   function getItemData(item) {
     if (!item.weeks || !item.weeks.length) {
       return [];
     }
-    return item.weeks.map(w => {
-        return { week: w.week, points: w.points }
-      })
+    return seasonWeeks.map(w => {
+      const playerWeek = item.weeks.find(pw => pw.week === w);
+      if (playerWeek) {
+        return playerWeek
+      }
+      return { week: w, points: 0 }
+    })
   }
 
 </script>
