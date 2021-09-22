@@ -14,25 +14,15 @@
 
   const fullList = items.getFullSet();
   const stats = statStore(rawStats, fullList)
-  const leagueList = $owners.filter(m => m.id).map(member => {
-    return { member, list: items.getOwnerSet(member.id, false) }
-  })
-  const leagueStats = stats.getLeagueStats(leagueList)
 
   $: ownerList = items.getOwnerSet(activeOwner?.id, false);
-  $: ownerStats = stats.getOwnerStats(ownerList)
+  $: ownerStats = stats.getOwnerStats(ownerList) ?? []
 </script>
 
 <section>
-  {#if activeOwner}
-    {#each ownerStats as item}
-      <StatCard {item} />
-    {/each}
-  {:else}
-    {#each leagueStats as item}
-      <StatCard {item} />
-    {/each}
-  {/if}
+  {#each ownerStats as item}
+    <StatCard {item} />
+  {/each}
 </section>
 
 <style>

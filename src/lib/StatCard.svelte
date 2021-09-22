@@ -1,5 +1,7 @@
 <script>
   export let item;
+  export let index;
+  export let colorByIndex = false;
 
   const positionTag = {
     'QB': 'bg-blue-400',
@@ -10,10 +12,24 @@
     'K': 'bg-gray-800',
   }
 
+  const colorIndex = {
+    0: 'bg-green-500',
+    1: 'bg-green-400',
+    2: 'bg-green-300',
+    3: 'bg-green-200',
+    4: 'bg-green-100',
+    5: 'bg-red-100',
+    6: 'bg-red-200',
+    7: 'bg-red-300',
+    8: 'bg-red-400',
+    9: 'bg-red-500',
+  }
+  
+
   const placeholderImg = 'https://s.yimg.com/cv/apiv2/default/20180730/silhouette@x300.png'
 </script>
 
-<div class="tile p-1 m-1 {item.team ? 'bg-gray-200' : 'bg-red-600'}  u-round u-items-center">
+<div class="tile p-1 m-1 {colorByIndex ? colorIndex[index] : ''}  u-round u-items-center">
   <div class="tile__icon">
     {#if item.round === 0}
     <p class="m-0 uppercase keeper">Keeper</p>
@@ -37,7 +53,7 @@
           {/if}
         </div>
         <div class="uppercase">
-          <button class="btn-success uppercase cost-btn">{item.playerRatio.toFixed(2)}</button>
+          <button class="btn-warning uppercase cost-btn">{item?.playerRatio?.toFixed(2) ?? '0.00'}</button>
         </div>
     </div>  
   </div>
@@ -63,11 +79,12 @@
   .avatar {
     height: 6rem;
     width: 6rem;
+    padding-top: 0;
     background-color: #fff;
   }
 
   .player-avatar {
-    padding-top: 20px;
+    padding-top: 16px;
   }
 
   .point-btn {
@@ -120,14 +137,14 @@
     .avatar {
       height: 3rem;
       width: 3rem;
-      padding-top: 8px;
+      padding-top: 0px;
       background-color: #fff;
     }
     .player-avatar {
-      padding-top: 8px;
+      padding-top: 6px;
     }
     .tile__title {
-      font-size: .90em;
+      font-size: .65em;
     }
     .tag-wrapper {
       width: 60px;

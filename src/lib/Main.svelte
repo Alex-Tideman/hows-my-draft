@@ -3,6 +3,7 @@
     import Analysis from './Analysis.svelte';
     import TeamList from './TeamList.svelte';
     import Results from './Results.svelte';
+    import Leaders from './Leaders.svelte';
 
     export let rawStats;
 
@@ -15,8 +16,9 @@
 
 <div class="container">
   <div class="row">
+    {#if tab !== 'leaderboard'}
     <div class="col-md-3 col-xs-12">
-      <ul class="menu">
+      <ul class="menu animated fadeIn">
         {#each $owners as item}
             <li class="menu-item owner-item" style={activeOwner.id === item.id ? "background-color: #00e047;" : ""} on:click={() => handleClick(item)} >
               {item.team}
@@ -24,7 +26,8 @@
         {/each}  
       </ul>
     </div>
-    <div class="col-md-9 col-xs-12 text-left">
+    {/if}
+    <div class="col-md-{tab !== 'leaderboard' ? '9' : '12'} col-xs-12 text-left">
       <div class="tab-container">
           <ul>
               <li class={tab === 'leaderboard' ? 'selected' : ''} on:click={() => tab = 'leaderboard'}><div class="tab-item-content {tab === 'leaderboard' ? 'bg-red-100' : ''}">Leaderboard</div></li>
@@ -34,7 +37,7 @@
           </ul>
       </div>
       {#if tab === 'leaderboard'}
-        <Results activeOwner={null} {rawStats} />
+        <Leaders {rawStats} />
       {:else if tab === 'cost'}
         <TeamList {activeOwner} />
       {:else if tab === 'strategy'}
@@ -51,7 +54,7 @@
 <style>
 	.container {
     position: relative;
-    padding-top: 40px;
+    padding-top: 20px;
     width: 100%;
 	}
 	
@@ -96,6 +99,13 @@
     font-weight: 900;
   }
 }
+
+@media (max-width: 420px) {
+  .container {
+      padding-top: 5px;
+    }
+}
+
 
 
 </style>

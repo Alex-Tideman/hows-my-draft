@@ -130,78 +130,88 @@ const itemStore = (initialValue) => {
   }
 }
 
+const generatePlayerState = (initialValue, list) => {
+	const groupPerformanceByPosition = groupBy(initialValue.performances.filter(p => p.name), 'position');
 
-const getTotalPoints = (weeks) => {
-	if (!weeks || !weeks.length) {
-		return 0;
-	}
-	return weeks
-		// .filter(w => w.roster_position)
-		.reduce((sum, week) => sum += parseFloat(week.points), 0)
+	const playerStats = {};
+	Object.keys(groupPerformanceByPosition).forEach(position => {
+		playerStats[position] = { players: {} }
+		const positionPeformanceByName = groupBy(groupPerformanceByPosition[position], 'name');
+		Object.keys(positionPeformanceByName).forEach(name => {
+			const drafted = list.find(l => l.name === name);
+			const weeks = positionPeformanceByName[name];
+			const totalPoints = weeks.reduce((sum, week) => sum += parseFloat(week.points), 0)
+			const avgPoints = weeks.length > 0 ? totalPoints / weeks.length : 0;
+			const playerStat: PlayerStat = { 
+				name: drafted ? drafted.name : weeks[0].name,
+				position: drafted ? drafted.position : weeks[0].position,
+				cost: drafted ? parseInt(drafted.cost) : 0,
+				totalPoints,
+				avgPoints,
+				weeks: positionPeformanceByName[name],
+				player: true,
+			}
+			playerStats[position].players[name] = playerStat;
+		})
+		const draftedPlayers = Object.values(playerStats[position].players).filter((p: PlayerStat) => p.cost)
+		const avgCost = draftedPlayers.reduce((sum: number, p: PlayerStat) => sum += p.cost, 0) as number / draftedPlayers.length
+		const avgPoints = draftedPlayers.reduce((sum: number, p: PlayerStat) => sum += p.avgPoints, 0) as number / draftedPlayers.length
+		playerStats[position].avgCost = avgCost;
+		playerStats[position].avgPoints = avgPoints;
+		Object.values(playerStats[position].players).forEach((player: PlayerStat) => {
+			// High pointsDiff => Scoring a lot. Outperforming avg for position
+			const pointsDiff = player.avgPoints - playerStats[position].avgPoints;
+			// High costMultiplier => Cheap compared to position avg cost
+			const costMultiplier = player.cost ? playerStats[position].avgCost / player.cost : 0;
+			// High playerRatio => Overperforming and cheap compared to position avg cost
+			const playerRatio = pointsDiff >= 0 ? pointsDiff * costMultiplier : pointsDiff / costMultiplier;
+			player.playerRatio = playerRatio;
+			player.pointsDiff = pointsDiff;
+			player.costMultiplier = costMultiplier;
+		})
+	})
+	return playerStats;
 }
 
-const getGamesPlayed = (weeks) => {
-	if (!weeks || !weeks.length) {
-		return 0;
-	}
-	return weeks.length
-}
-
-const getAverageOfPosition = (group) => {
-	const totalPoints = group.reduce((sum, week) => sum += parseFloat(week.points), 0)
-	const totalCost = group.reduce((sum, week) => sum += parseFloat(week.cost), 0)
-	const avgPoints = totalPoints / group.length;
-	const avgCost = totalCost / group.filter(p => parseInt(p.cost) > 0).length;
-	return { avgCost, avgPoints }
-}
-
-const generateStatList = (list, combinedStats) => {
-	const groupPeformanceByName = groupBy(combinedStats.performances, 'name');
-	const groupPerformanceByPosition = groupBy(combinedStats.performances, 'position');
-
+const generateStatList = (list, playerStats) => {
 	return list.map(x => {
-		const weeks = groupPeformanceByName[x.name] ?? [];
-		const gamesPlayed = getGamesPlayed(weeks);
-		const totalPoints = getTotalPoints(weeks);
-		const positionGroup = groupPerformanceByPosition[x.position];
-		const { avgCost, avgPoints } = getAverageOfPosition(positionGroup)
-		const playerAvgPoints = gamesPlayed > 0 ? (totalPoints / gamesPlayed) : 0;
-		// High pointsDiff => Scoring a lot. Outperforming avg for position
-		const pointsDiff = playerAvgPoints ? playerAvgPoints - avgPoints : 0;
-		// High costMultiplier => Cheap compared to position avg cost
-		const costMultiplier = avgCost / parseInt(x.cost);
-		// High playerRatio => Overperforming and cheap compared to position avg cost
-		const playerRatio = pointsDiff >= 0 ? pointsDiff * costMultiplier : pointsDiff / costMultiplier
+		const playerStat = playerStats[x.position].players[x.name];
+		if (!playerStat) {
+			return {
+				...x,
+				totalPoints: 0,
+				avgPoints: 0,
+				weeks: [],
+				playerRatio: 0,
+				pointsDiff: 0 - playerStats[x.position].avgPoints,
+				costMultiplier: x.cost ? playerStats[x.position].avgCost / x.cost : 0,
+				player: true,
+			}
+		}
 		return {
 			...x, 
-			pointsDiff,
-			costMultiplier,
-			gamesPlayed,
-			totalPoints,
-			playerRatio,
-			player: true,
-			weeks,
+			...playerStat,
 		}
 	})
 }
 
+interface PlayerStat {
+	name: string;
+	position: string;
+	cost: number;
+	totalPoints: number;
+	avgPoints: number;
+	weeks: any[];
+	playerRatio?: number;
+	pointsDiff?: number;
+	costMultiplier?: number;
+	player?: boolean;
+}
 
-
-
-export const statStore = (initialValue, draftList) => {
-	const combinedPerformances = initialValue.performances.map(p => {
-    const drafted = draftList.find(l => l.name === p.name)
-    if (drafted) {
-      return { ...p, cost: drafted.cost };
-    }
-    return { ...p, cost: 0 };
-  })
-  const combinedStats = { 
-		matchups: initialValue.matchups, 
-		performances: combinedPerformances 
-	};
-
-  const { subscribe, set, update } = writable(combinedStats);
+export const statStore = (initialValue, list) => {
+	const draftList = list;
+	const playerStats = generatePlayerState(initialValue, list);
+  const { subscribe, set, update } = writable(initialValue);
 
   return {
     subscribe,
@@ -211,17 +221,25 @@ export const statStore = (initialValue, draftList) => {
     update,
 		getLeagueStats: (memberList) => {
 			const leagueStatList = memberList.map(({ member, list }) => {
-				const memberStatList = generateStatList(list, combinedStats)
+				const memberStatList = generateStatList(list, playerStats)
 				const playerRatio = memberStatList.reduce((sum, player) => sum += player.playerRatio, 0)
 				return { name: member.team, team: member.name, img: member.img, playerRatio }
 			});
 			const orderedList = orderBy(leagueStatList, 'playerRatio', 'desc');
 			return orderedList;
 		},
-		getOwnerStats: (list) => {
-			const statList = generateStatList(list, combinedStats);
+		getOwnerStats: (ownerList) => {
+			const statList = generateStatList(ownerList, playerStats);
 			const orderedList = orderBy(statList, 'playerRatio', 'desc');
 			return orderedList;
+		},
+		getPositionLeaderStats: (position) => {
+			const fullList = generateStatList(draftList, playerStats);
+			const positionList = fullList.filter(l => l.position === position);
+			const orderedList = orderBy(positionList, 'playerRatio', 'desc');
+			const top5 = orderedList.slice(0, 5)
+			const bottom5 = orderedList.slice(orderedList.length - 5, orderedList.length)
+			return [...top5, ...bottom5]
 		}
   }
 }
