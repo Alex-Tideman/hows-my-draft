@@ -147,7 +147,7 @@
       font-size: .65em;
     }
     .tag-wrapper {
-      width: 60px;
+      width: 70px;
       margin-right: 4px;
       font-size: .85em;
     }
