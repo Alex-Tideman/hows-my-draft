@@ -10,9 +10,9 @@
 	<slot />
 </main>
 
-<!-- <footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-</footer> -->
+<footer>
+	<p><a href="mailto:me@alextideman.com">intrigued?</a></p>
+</footer>
 
 <style>
 	main {
@@ -25,5 +25,16 @@
 		overflow-x: hidden;
 		margin: 0 auto;
 		box-sizing: border-box;
+	}
+
+	footer {
+		background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224));
+		padding: 0 5px;
+		text-align: right;
+	}
+
+	footer a {
+		color: white;
+		font-size: .75em;
 	}
 </style>

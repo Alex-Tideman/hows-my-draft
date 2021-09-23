@@ -9,7 +9,6 @@
   export let data;
 
 </script>
-{#if data.length > 0}
   <div class="chart-container">
     <LayerCake
       padding={{ left: 20, right: 10, bottom: 15, top: 10 }}
@@ -34,7 +33,6 @@
     </LayerCake> 
     <div class="legend">Points per Week</div>  
   </div>
-{/if}
 
 <style>
   .chart-container {

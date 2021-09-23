@@ -4,9 +4,11 @@
     import TeamList from './TeamList.svelte';
     import Results from './Results.svelte';
     import Leaders from './Leaders.svelte';
+    import Terminology from './Terminology.svelte';
 
     export let rawStats;
 
+    const showOwnersTab = ['performance', 'strategy', 'cost']
     let tab = 'performance';
     $: activeOwner = $owners[0];
     function handleClick(owner) {
@@ -16,7 +18,7 @@
 
 <div class="container">
   <div class="row">
-    {#if tab !== 'leaderboard'}
+    {#if showOwnersTab.includes(tab)}
     <div class="col-md-3 col-xs-12">
       <ul class="menu animated fadeIn">
         {#each $owners as item}
@@ -27,13 +29,14 @@
       </ul>
     </div>
     {/if}
-    <div class="col-md-{tab !== 'leaderboard' ? '9' : '12'} col-xs-12 text-left">
+    <div class="col-md-{showOwnersTab.includes(tab) ? '9' : '12'} col-xs-12 text-left">
       <div class="tab-container">
           <ul>
               <li class={tab === 'leaderboard' ? 'selected' : ''} on:click={() => tab = 'leaderboard'}><div class="tab-item-content {tab === 'leaderboard' ? 'bg-red-100' : ''}">Leaderboard</div></li>
               <li class={tab === 'performance' ? 'selected' : ''} on:click={() => tab = 'performance'}><div class="tab-item-content {tab === 'performance' ? 'bg-red-100' : ''}">DraftScore&trade;</div></li>
               <li class={tab === 'strategy' ? 'selected' : ''} on:click={() => tab = 'strategy'}><div class="tab-item-content {tab === 'strategy' ? 'bg-red-100' : ''}">Strategy</div></li>
               <li class={tab === 'cost' ? 'selected' : ''} on:click={() => tab = 'cost'}><div class="tab-item-content {tab === 'cost' ? 'bg-red-100' : ''}">Cost</div></li>
+              <li class={tab === 'terminology' ? 'selected' : ''} on:click={() => tab = 'terminology'}><div class="tab-item-content {tab === 'terminology' ? 'bg-red-100' : ''}">Terminology</div></li>
           </ul>
       </div>
       {#if tab === 'leaderboard'}
@@ -46,6 +49,8 @@
         <Analysis {activeOwner} statId={3} fill="#2972fa" />
       {:else if tab === 'performance'} 
         <Results {activeOwner} {rawStats} />
+      {:else if tab === 'terminology'} 
+        <Terminology />
       {/if}
     </div>
   </div>

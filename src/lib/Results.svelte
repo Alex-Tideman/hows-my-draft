@@ -1,9 +1,8 @@
 <script>
-  import lodash from "lodash";
-  import { items, owners, statStore } from '../stores/store';
+  import Lazy from 'svelte-lazy';
+  import { items, statStore } from '../stores/store';
   import StatCard from './StatCard.svelte';
   import StatCardAnalysis from "./StatCardAnalysis.svelte";
-  const { orderBy } = lodash;
 
   export let activeOwner;
   export let rawStats;
@@ -33,7 +32,9 @@
 <section>
   {#each ownerStats as item, index}
     <StatCard {item} {index} />
-    <StatCardAnalysis data={getItemData(item)} />
+    <Lazy height={160}>
+      <StatCardAnalysis data={getItemData(item)} />
+    </Lazy>    
   {/each}
 </section>
 

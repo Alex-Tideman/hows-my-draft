@@ -229,6 +229,7 @@ const getTopAndBottom = (list) => {
 export const statStore = (initialValue, list) => {
 	const draftList = list;
 	const playerStats = generatePlayerState(initialValue, list);
+	console.log("PLAYER STATS: ", playerStats)
   const { subscribe, set, update } = writable(initialValue);
 
   return {

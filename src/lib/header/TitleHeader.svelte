@@ -7,7 +7,8 @@
     <div class="header header-fixed u-unselectable header-animated">
       <div class="header-brand">
           <div class="nav-item no-hover">
-              <a href="/"><h6 class="title">How's My Draft</h6></a>
+              <img class="logo" src={'apple-touch-icon.png'} />
+              <a href="/"><h6 class="title">How's My Draft?</h6></a>
           </div>
       </div>
       <div class="header-nav" id="header-menu">
@@ -39,6 +40,15 @@
 		width: 100%;
 		z-index: 10;
 	}
+
+    .logo {
+        width: 2em;
+        height: 2em;
+    }
+
+    .title {
+        margin-left: 5px;
+    }
 
   a {
     text-align: left;

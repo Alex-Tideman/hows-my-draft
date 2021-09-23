@@ -40,6 +40,7 @@
     "lodash": "^4.17.21",
     "papaparse": "^5.3.1",
     "svelte-async-readable": "^3.1.4",
-    "svelte-awesome": "^2.3.2"
+    "svelte-awesome": "^2.3.2",
+    "svelte-lazy": "^1.0.12"
   }
 }
