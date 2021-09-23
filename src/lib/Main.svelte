@@ -100,8 +100,7 @@
   }
 
   .tab-item-content {
-    font-size: .85em;
-    font-weight: 900;
+    font-size: .95em;
   }
 }
 
