@@ -54,7 +54,7 @@ export interface Performance {
 	roster_position: string;
 	week: string;
 }
-const { groupBy, orderBy, sortBy } = lodash;
+const { groupBy, orderBy, sortBy, omit } = lodash;
 
 export const yScroll = writable(0);
 
@@ -165,9 +165,19 @@ const generatePlayerState = (initialValue, list) => {
 			const costMultiplier = player.cost ? playerStats[position].avgCost / player.cost : 0;
 			// High playerRatio => Overperforming and cheap compared to position avg cost
 			const playerRatio = pointsDiff >= 0 ? pointsDiff * costMultiplier : pointsDiff / costMultiplier;
+			const week = player.weeks[0];
 			player.playerRatio = playerRatio;
 			player.pointsDiff = pointsDiff;
 			player.costMultiplier = costMultiplier;
+			if (week) {
+				const playerProperties = omit(week, ['manager', 'name', 'position', 'roster_position', 'week']);
+				const playerTotals = {}
+				Object.keys(playerProperties).forEach(key => {
+					playerTotals[key] = player?.weeks?.reduce((sum, w) => sum += (isNaN(w[key]) ? 0 : parseFloat(w[key])), 0) ?? 0;
+				})
+				console.log("PLayer; ", player)
+				player.totals = playerTotals;
+			}
 		})
 	})
 	return playerStats;
@@ -206,6 +216,14 @@ interface PlayerStat {
 	pointsDiff?: number;
 	costMultiplier?: number;
 	player?: boolean;
+	totals: any[];
+}
+
+const getTopAndBottom = (list) => {
+	const orderedList = orderBy(list, 'playerRatio', 'desc');
+	const top5 = orderedList.slice(0, 5)
+	const bottom5 = orderedList.slice(orderedList.length - 5, orderedList.length)
+	return { top5, bottom5 };
 }
 
 export const statStore = (initialValue, list) => {
@@ -225,22 +243,18 @@ export const statStore = (initialValue, list) => {
 				const playerRatio = memberStatList.reduce((sum, player) => sum += player.playerRatio, 0)
 				return { name: member.team, team: member.name, img: member.img, playerRatio }
 			});
-			const orderedList = orderBy(leagueStatList, 'playerRatio', 'desc');
-			return orderedList;
+			return getTopAndBottom(leagueStatList)
+		},
+		getPositionLeaderStats: (position) => {
+			const fullList = generateStatList(draftList, playerStats);
+			const positionList = fullList.filter(l => l.position === position);
+			return getTopAndBottom(positionList)
 		},
 		getOwnerStats: (ownerList) => {
 			const statList = generateStatList(ownerList, playerStats);
 			const orderedList = orderBy(statList, 'playerRatio', 'desc');
 			return orderedList;
 		},
-		getPositionLeaderStats: (position) => {
-			const fullList = generateStatList(draftList, playerStats);
-			const positionList = fullList.filter(l => l.position === position);
-			const orderedList = orderBy(positionList, 'playerRatio', 'desc');
-			const top5 = orderedList.slice(0, 5)
-			const bottom5 = orderedList.slice(orderedList.length - 5, orderedList.length)
-			return [...top5, ...bottom5]
-		}
   }
 }
 

@@ -48,8 +48,8 @@
     <div class="u-flex">
         <div class="tag-wrapper">
           {#if item.costMultiplier}
-          <div class="tag stat-tag tag--info">{item.pointsDiff >= 0 ? '+' : ''}{item.pointsDiff.toFixed(2)} <span class="tag-label">pts/gm</span></div>
-          <div class="tag stat-tag tag--danger">x{item.costMultiplier.toFixed(2)} <span class="tag-label">cheaper</span></div>
+          <div class="tag stat-tag tag--info text-gray-000">{item.pointsDiff >= 0 ? '+' : ''}{item.pointsDiff.toFixed(2)} <span class="tag-label">pts/gm</span></div>
+          <div class="tag stat-tag tag--link">x{item.costMultiplier.toFixed(2)} <span class="tag-label">cheaper</span></div>
           {/if}
         </div>
         <div class="uppercase">
