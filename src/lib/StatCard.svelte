@@ -155,8 +155,8 @@
       font-size: .75em;
     }
     .tag-label {
-      font-size: .5em;
-      margin-left: 1px;
+      font-size: .6em;
+      margin-left: 3px;
     }
     .cost-btn {
       font-weight: 700;
