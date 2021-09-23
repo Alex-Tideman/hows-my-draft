@@ -16,13 +16,13 @@
 
   const seasonWeeks = ['1', '2']
   function getItemData(item) {
-    if (!item.weeks || !item.weeks.length) {
-      return [];
-    }
     return seasonWeeks.map(w => {
+      if (!item.weeks || !item.weeks.length) {
+        return { week: w, points: 0 }
+      }
       const playerWeek = item.weeks.find(pw => pw.week === w);
       if (playerWeek) {
-        return playerWeek
+        return playerWeek;
       }
       return { week: w, points: 0 }
     })
