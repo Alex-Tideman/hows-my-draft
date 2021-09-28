@@ -13,7 +13,7 @@
   $: ownerList = items.getOwnerSet(activeOwner?.id, false);
   $: ownerStats = stats.getOwnerStats(ownerList);
 
-  const seasonWeeks = ['1', '2']
+  const seasonWeeks = ['1', '2', '3']
   function getItemData(item) {
     return seasonWeeks.map(w => {
       if (!item.weeks || !item.weeks.length) {
