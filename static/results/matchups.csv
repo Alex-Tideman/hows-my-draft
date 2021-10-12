@@ -31,11 +31,21 @@ week,manager,win,points,proj_points,opponent,opp_points,opp_proj_points
 3,brandon,True,106.1,113.79,Samuel,98.52,123.16
 4,Brimbry,False,101.22,125.14,Joel Gitar,111.66,123.46
 4,Joel Gitar,True,111.66,123.46,Brimbry,101.22,125.14
-4,David,False,119.42,118.4,David,148.02,123.31
-4,David,True,148.02,123.31,David,119.42,118.4
+4,David,False,119.42,118.4,David,148.12,123.31
+4,David,True,148.12,123.31,David,119.42,118.4
 4,Steve-Dave,False,86.1,129.01,brandon,116.02,117.32
 4,brandon,True,116.02,117.32,Steve-Dave,86.1,129.01
 4,Alex,True,138.98,126.34,Collin,93.14,120.93
 4,Collin,False,93.14,120.93,Alex,138.98,126.34
 4,Samuel,True,140.88,119.59,Tony Smith,99.52,124.45
 4,Tony Smith,False,99.52,124.45,Samuel,140.88,119.59
+5,Brimbry,False,148.0,124.91,Alex,152.4,129.03
+5,Alex,True,152.4,129.03,Brimbry,148.0,124.91
+5,David,False,121.36,117.06,Joel Gitar,143.34,120.09
+5,Joel Gitar,True,143.34,120.09,David,121.36,117.06
+5,Steve-Dave,False,126.8,126.1,David,158.68,121.19
+5,David,True,158.68,121.19,Steve-Dave,126.8,126.1
+5,Samuel,False,120.58,117.93,Collin,131.08,116.74
+5,Collin,True,131.08,116.74,Samuel,120.58,117.93
+5,Tony Smith,True,105.78,120.53,brandon,89.28,112.05
+5,brandon,False,89.28,112.05,Tony Smith,105.78,120.53
