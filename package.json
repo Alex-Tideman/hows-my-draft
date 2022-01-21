@@ -1,6 +1,6 @@
 {
-  "name": "index-card",
-  "version": "0.0.1",
+  "name": "hows-my-draft",
+  "version": "1.0.0",
   "author": "Alex Tideman",
   "scripts": {
     "dev": "svelte-kit dev",
