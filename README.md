@@ -1,6 +1,6 @@
 # Hows My Draft
 
-[`How's My Draft`](https://www.howsmydraft.com);
+[`How's My Draft`](https://www.howsmydraft.com)
 
 Keep tabs on your fantasy football draft strategy by tracking your DraftScore per player.
 
