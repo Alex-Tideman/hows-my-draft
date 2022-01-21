@@ -1,24 +1,13 @@
-# create-svelte
+# Hows My Draft
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+[`How's My Draft`](https://www.howsmydraft.com)
 
-## Creating a project
+Keep tabs on your fantasy football draft strategy by tracking your DraftScore per player.
 
-If you're seeing this, you've probably already done this step. Congrats!
+<img width="1251" alt="Screen Shot 2022-01-21 at 9 43 31 AM" src="https://user-images.githubusercontent.com/7967403/150556151-a9918785-57ec-4b04-89d2-1312c473a498.png">
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Start server
 
 ```bash
 npm run dev
@@ -27,9 +16,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
+## Build app
 
 ```bash
 npm run build
