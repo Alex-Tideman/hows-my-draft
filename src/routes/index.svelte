@@ -13,12 +13,17 @@
 	// it so that it gets served as a static asset in prod
 	export const prerender = true;
 </script>
+
 <script lang="ts">
+	import IndexCardRoller from '$lib/IndexCardRoller.svelte';
 	import Login from '$lib/Login.svelte';
+	import Scroller from '$lib/Scroller.svelte';
 </script>
 
 <svelte:head>
 	<title>How's My Draft</title>
 </svelte:head>
 
-<Login slot="main" />
+<!-- <Login slot="main" /> -->
+
+<IndexCardRoller></IndexCardRoller>
