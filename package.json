@@ -2,6 +2,9 @@
   "name": "hows-my-draft",
   "version": "1.0.0",
   "author": "Alex Tideman",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
